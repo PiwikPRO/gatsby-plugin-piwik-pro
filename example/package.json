@@ -1,0 +1,30 @@
+{
+  "name": "piwik-gatsby-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "piwik-gatsby-demo",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "gatsby": "^4.22.0",
+    "gatsby-piwik-pro": "file:../dist",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.2",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "typescript": "^4.8.2"
+  }
+}
