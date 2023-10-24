@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { PageViews } from 'gatsby-piwik-pro'
-import { HeadFC, Link } from 'gatsby'
+import {PageViews} from '@piwikpro/gatsby-plugin-piwik-pro'
+import {HeadFC, Link} from 'gatsby'
 import profile from '../images/profile.png'
 
 const pageStyles = {
@@ -43,7 +43,7 @@ const PageViewsPage = () => {
   return (
     <main style={pageStyles}>
       <div style={headerStyle}>
-        <img src={profile} style={imageStyle} />
+        <img src={profile} style={imageStyle}/>
         <p>PiwikPRO Gatsby Examples</p>
       </div>
       <div>

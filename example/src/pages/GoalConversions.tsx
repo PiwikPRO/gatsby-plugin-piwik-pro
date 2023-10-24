@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { GoalConversions } from 'gatsby-piwik-pro'
+import { GoalConversions } from '@piwikpro/gatsby-plugin-piwik-pro'
 import { HeadFC, Link } from 'gatsby'
 import profile from '../images/profile.png'
 

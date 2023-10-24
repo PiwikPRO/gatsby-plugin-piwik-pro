@@ -3,14 +3,14 @@
 Dedicated Piwik PRO library that helps with implementing Piwik PRO Tag Manager and the Piwik PRO tracking client in Gatsby applications.
 
 - [Installation](#installation)
-  - [NPM](#npm)
+  - [npm/yarn](#npm)
   - [Basic setup](#basic-setup)
-  - [Setup with nonce](#setup-with-nonce)
-- [Supported methods list](#supported-methods-list)
+  - [Track page views](#track-page-views)
+- [Supported methods list](#supported-methods-list-and-usage)
   - [Analytics](#analytics)
-    - [Page Views](#send-page-views-and-virtual-page-views)
+    - [Page Views](#pages-views)
     - [User Management](#user-management)
-    - [Custom Events](#send-custom-events)
+    - [Custom Events](#custom-events)
     - [Site search](#site-search)
     - [E-Commerce](#e-commerce)
     - [Content Tracking](#content-tracking)
@@ -44,19 +44,42 @@ In the arguments, pass your container URL and your container id as parameters (m
 
 You can disable plugin setting parameter `pluginEnabled` as false.
 
+If you want to use nonce, you need to pass it as parameter `nonceString`.
+
 ##### gatsby-config.js
 
 ```ts
 plugins: [
     {
-      resolve: 'gatsby-piwik-pro',
+      resolve: '@piwikpro/gatsby-plugin-piwik-pro',
       options: {
+        pluginEnabled: true,
         containerUrl: 'https://example.containers.piwik.pro/',
         containerId: 'dc0f2c80-79d8-456a-9c77-6d48d6f867dd', 
-        pluginEnabled: true 
+        nonceString: '' // not required
       }
     }
   ]
+```
+
+### Track page views
+
+To track all page view you need to create or edit `gatsby-browser.js` or `gatsby-browser.ts` file, and add `onRouteUpdate` function like on example below. 
+
+```ts
+import {PageViews} from '@piwikpro/gatsby-plugin-piwik-pro'
+
+const onRouteUpdate = () => {
+  if (`requestAnimationFrame` in window) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setTimeout(() => PageViews.trackPageView(), 0))
+    })
+  } else {
+    setTimeout(() => PageViews.trackPageView(), 32)
+  }
+}
+
+export {onRouteUpdate}
 ```
 
 ## Supported methods list and usage
@@ -64,7 +87,7 @@ plugins: [
 To use methods in your page you need to import them from the library like on example.
 
 ```ts
-import { PageViews, DataLayer } from '@piwikpro/gatsby-piwik-pro'
+import { PageViews, DataLayer } from '@piwikpro/gatsby-plugin-piwik-pro'
 ```
 
 You can use those methods in all hooks and props for ex. `useEffect` or `onClick`.
@@ -96,7 +119,7 @@ Below you can view the sample usage of the avialable methods from modules.
 #### Pages views
 
 ```ts
-import { PageViews } from '@piwikpro/gatsby-piwik-pro'
+import { PageViews } from '@piwikpro/gatsby-plugin-piwik-pro'
 ```
 
 ```ts
@@ -126,7 +149,7 @@ Collection of methods to handle users and visitors data through the Piwik PRO AP
 ##### Example usage
 
 ```ts
-import { UserManagement } from '@piwikpro/gatsby-piwik-pro'
+import { UserManagement } from '@piwikpro/gatsby-plugin-piwik-pro'
 ```
 
 ```ts
@@ -182,7 +205,7 @@ Collection of methods to handle custom events, not described in the other catego
 ##### Example usage
 
 ```ts
-import { CustomEvent } from '@piwikpro/gatsby-piwik-pro'
+import { CustomEvent } from '@piwikpro/gatsby-plugin-piwik-pro'
 ```
 
 ```ts
@@ -204,7 +227,7 @@ Collection of methods to track site search data, through the Piwik PRO API.
 ##### Example usage
 
 ```ts
-import { SiteSearch } from '@piwikpro/gatsby-piwik-pro'
+import { SiteSearch } from '@piwikpro/gatsby-plugin-piwik-pro'
 ```
 
 ```ts
@@ -255,7 +278,7 @@ Collection of methods to handle eCommerce events through the Piwik PRO API.
 ##### Example usage
 
 ```ts
-import { eCommerce } from '@piwikpro/gatsby-piwik-pro'
+import { eCommerce } from '@piwikpro/gatsby-plugin-piwik-pro'
 ```
 
 ```ts
@@ -314,7 +337,7 @@ Collection of methods to track impressions through the Piwik PRO API.
 
 ##### Example usage
 ```ts
-import { ContentTracking } from '@piwikpro/gatsby-piwik-pro'
+import { ContentTracking } from '@piwikpro/gatsby-plugin-piwik-pro'
 ```
 
 ```ts
@@ -376,7 +399,7 @@ Collection of methods to manually tracks outlink or download events through the 
 ##### Example usage
 
 ```ts
-import { DownloadAndOutlink } from '@piwikpro/gatsby-piwik-pro'
+import { DownloadAndOutlink } from '@piwikpro/gatsby-plugin-piwik-pro'
 ```
 
 ```ts
@@ -428,7 +451,7 @@ Collection of methods to manually tracks goal conversions through the Piwik PRO 
 ##### Example usage
 
 ```ts
-import { GoalConversions } from '@piwikpro/gatsby-piwik-pro'
+import { GoalConversions } from '@piwikpro/gatsby-plugin-piwik-pro'
 ```
 
 ```ts
@@ -455,7 +478,7 @@ Collection of methods to manage custom dimentsions through the Piwik PRO API.
 ###### Example usage
 
 ```ts
-import { CustomDimensions } from '@piwikpro/gatsby-piwik-pro'
+import { CustomDimensions } from '@piwikpro/gatsby-plugin-piwik-pro'
 ```
 
 ```ts
@@ -501,7 +524,7 @@ A data layer is a data structure on your site or app where you can store data an
 ###### Example usage
 
 ```ts
-import { DataLayer } from '@piwikpro/gatsby-piwik-pro'
+import { DataLayer } from '@piwikpro/gatsby-plugin-piwik-pro'
 ```
 
 ```ts

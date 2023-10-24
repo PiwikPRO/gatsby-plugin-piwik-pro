@@ -11,8 +11,8 @@ Dedicated Piwik PRO library that helps with implementing Piwik PRO Tag Manager a
 Go to the top library directory. Install it's dependencies and build library using commands: 
 
 ```
-npm install
-npm run build
+yarn
+yarn build
 ```
 
 Then back to the demo directory and continue.
@@ -20,20 +20,24 @@ Then back to the demo directory and continue.
 Install all demo packages running command:
 
 ```
-npm install 
+yarn 
 ```
 
 ## Configuration
 
 Add your Piwik PRO panel container URL and container identifier in `.env` file and they will be automatic attached into the `gatsby-config.ts` file.
 Project is ready to run.
+```
+GATSBY_CONTAINER_URL=
+GATSBY_CONTAINER_ID=
+```
 
 ## Run
 
 To run example project use command:
 
 ```
-npm run develop
+yarn develop
 ```
 
 Project is accessible in browser under `http://localhost:8000` address.

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { DownloadAndOutlink } from 'gatsby-piwik-pro'
+import { DownloadAndOutlink } from '@piwikpro/gatsby-plugin-piwik-pro'
 import { HeadFC, Link } from 'gatsby'
 import profile from '../images/profile.png'
 
