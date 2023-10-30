@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { DataLayer } from 'gatsby-piwik-pro'
+import { DataLayer } from '@piwikpro/gatsby-plugin-piwik-pro'
 import { HeadFC, Link } from 'gatsby'
 import profile from '../images/profile.png'
 

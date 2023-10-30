@@ -1,5 +1,6 @@
 import * as React from 'react'
-import type { HeadFC } from 'gatsby'
+import {Link} from "gatsby";
+import type {HeadFC} from 'gatsby'
 import profile from '../images/profile.png'
 
 const pageStyles = {
@@ -115,18 +116,18 @@ const IndexPage = () => {
   return (
     <main style={pageStyles}>
       <div style={headerStyle}>
-        <img src={profile} style={imageStyle} />
+        <img src={profile} style={imageStyle}/>
         <p>PiwikPRO Gatsby Examples</p>
         <ul style={listStyles}>
           {links.map((link) => (
-            <li key={link.url} style={{ ...listItemStyles }}>
+            <li key={link.url} style={{...listItemStyles}}>
               <span>
-                <a
+                <Link
                   style={linkStyle}
-                  href={`${link.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter-ts`}
+                  to={`${link.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter-ts`}
                 >
                   {link.text}
-                </a>
+                </Link>
                 <p style={descriptionStyle}>{link.description}</p>
               </span>
             </li>

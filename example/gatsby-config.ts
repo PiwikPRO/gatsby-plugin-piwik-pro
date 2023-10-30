@@ -5,16 +5,18 @@ dotenv.config()
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `Piwik Gatsby Demo`
+    title: `Piwik PRO Gatsby Demo`
   },
+
   graphqlTypegen: true,
   plugins: [
     {
-      resolve: 'gatsby-piwik-pro',
+      resolve: '@piwikpro/gatsby-plugin-piwik-pro',
       options: {
         containerUrl: process.env.GATSBY_CONTAINER_URL,
         containerId: process.env.GATSBY_CONTAINER_ID,
-        pluginEnabled: true // true by default
+        nonceString: process.env.GATSBY_NONCE_STRING,
+        pluginEnabled: true
       }
     }
   ]
