@@ -61,4 +61,4 @@ jobs:
               node-version: '18'
           - run: npm publish piwikpro-gatsby-plugin-piwik-pro-${{ steps.get_version.outputs.VERSION }}.tgz
             env:
-              NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+              NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
