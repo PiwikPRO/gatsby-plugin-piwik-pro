@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "./dist",
     "module": "CommonJS",
     "lib": ["dom", "es2016"],
     "target": "ES6",
@@ -20,6 +20,6 @@
     "typeRoots": ["node_modules/@types"],
     "skipLibCheck": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "example", "src/__tests__"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist", "src/__tests__"]
 }

@@ -11,7 +11,7 @@ export {
   GoalConversions,
   SiteSearch,
   UserManagement,
-  DataLayer
+  DataLayer,
 } from '@piwikpro/react-piwik-pro'
 
 export default PiwikPro

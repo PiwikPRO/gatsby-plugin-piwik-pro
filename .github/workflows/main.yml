@@ -12,17 +12,23 @@ on:
         default: 'warning'
 
 jobs:
-   tests:
-     runs-on: ubuntu-latest
-     steps:
-       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
-       - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
-         with:
-           node-version: '18'
-           cache: 'yarn'
-       - run: yarn
-       - run: yarn test
-   bump-and-build:
+  tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './plugin'
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      - run: yarn
+      - run: yarn test
+  bump-and-build:
+    defaults:
+      run:
+        working-directory: './plugin'
     needs: tests
     runs-on: ubuntu-latest
     steps:
@@ -45,21 +51,24 @@ jobs:
           name: ${{ steps.get_version.outputs.VERSION }}.tgz
           path: piwikpro-gatsby-plugin-piwik-pro-${{ steps.get_version.outputs.VERSION }}.tgz
           retention-days: 1
-   publish-npm:
-      needs: bump-and-build
-      runs-on: ubuntu-latest
-      steps:
-          - name: Get the version
-            id: get_version
-            run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-          - name: Download a Build Artifact
-            uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
-            with:
-              name: ${{ steps.get_version.outputs.VERSION }}.tgz
-          - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
-            with:
-              node-version: '18'
-              registry-url: 'https://registry.npmjs.org'
-          - run: npm publish piwikpro-gatsby-plugin-piwik-pro-${{ steps.get_version.outputs.VERSION }}.tgz
-            env:
-              NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  publish-npm:
+    needs: bump-and-build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './plugin'
+    steps:
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
+        with:
+          name: ${{ steps.get_version.outputs.VERSION }}.tgz
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm publish piwikpro-gatsby-plugin-piwik-pro-${{ steps.get_version.outputs.VERSION }}.tgz
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
