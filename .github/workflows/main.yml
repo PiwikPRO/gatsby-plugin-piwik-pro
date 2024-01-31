@@ -23,6 +23,7 @@ jobs:
         with:
           node-version: '18'
           cache: 'yarn'
+          cache-dependency-path: ./plugin/yarn.lock
       - run: yarn
       - run: yarn test
   bump-and-build:
@@ -41,6 +42,7 @@ jobs:
           node-version: '18'
           cache: 'yarn'
           registry-url: https://registry.npmjs.org/
+          cache-dependency-path: ./plugin/yarn.lock
       - run: yarn
       - run: npm --no-git-tag-version --allow-same-version version ${{ steps.get_version.outputs.VERSION }}
       - run: npm run build
