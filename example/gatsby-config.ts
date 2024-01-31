@@ -7,7 +7,6 @@ const config: GatsbyConfig = {
   siteMetadata: {
     title: `Piwik PRO Gatsby Demo`
   },
-
   graphqlTypegen: true,
   plugins: [
     {

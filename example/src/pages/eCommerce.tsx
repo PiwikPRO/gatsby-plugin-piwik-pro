@@ -2,6 +2,7 @@ import * as React from 'react'
 import { eCommerce } from '@piwikpro/gatsby-plugin-piwik-pro'
 import { HeadFC, Link } from 'gatsby'
 import profile from '../images/profile.png'
+import { useState } from "react";
 
 const pageStyles = {
   color: '#232129',
@@ -13,7 +14,7 @@ const headerStyle = {
   alignItems: 'center',
   fontSize: '2.5rem',
   fontWeight: '800',
-  lineHeight: '1.2'
+  lineHeight: 1.2
 }
 const imageStyle = {
   borderRadius: 9999,
@@ -30,47 +31,210 @@ const pageData = {
   description: 'Allow api calls to interact with visitor data.',
   methods: [
     {
-      method: 'addEcommerceItem',
-      usage:
-        'eCommerce.addEcommerceItem(productSKU: string, productName: string, productCategory: string | string[], productPrice: number, productQuantity: number)',
-      desc: 'Adds a product to a virtual shopping cart. If a product with the same SKU is in the cart, it will be removed first. Does not send any data to the Collecting & Processing Pipeline.'
+      method: 'ecommerceAddToCart',
+      usage: 'eCommerce.ecommerceAddToCart(products: Product[])',
+      desc: 'An ecommerce add-to-cart tag lets you collect data about products added to the cart in your online store. '
     },
     {
-      method: 'removeEcommerceItem',
-      usage: 'eCommerce.removeEcommerceItem(productSKU: string)',
-      desc: '  Removes a product with the provided SKU from a virtual shopping cart. If multiple units of that product are in the virtual cart, all of them will be removed. Does not send any data to the Collecting & Processing Pipeline.'
+      method: 'ecommerceRemoveFromCart',
+      usage: 'eCommerce.ecommerceRemoveFromCart(products: Product[])',
+      desc: 'An ecommerce remove-from-cart tag lets you collect data about products removed from the cart in your online store. '
     },
     {
-      method: 'clearEcommerceCart',
-      usage: 'eCommerce.clearEcommerceCart()',
-      desc: 'Removes all items from a virtual shopping cart. Does not send any data to the Collecting & Processing Pipeline.'
+      method: 'ecommerceCartUpdate',
+      usage: 'eCommerce.ecommerceCartUpdate(products: Product[], grandTotal: number)',
+      desc: 'An ecommerce cart update tag lets you collect data about products added to the cart in your online store.'
     },
     {
-      method: 'getEcommerceItems',
-      usage: 'eCommerce.getEcommerceItems()',
-      desc: 'Returns a copy of items from a virtual shopping cart. Does not send any data to the Collecting & Processing Pipeline'
+      method: 'ecommerceOrder',
+      usage: 'eCommerce.ecommerceOrder(products: Product[], paymentInformation: PaymentInformation)',
+      desc: 'An ecommerce order tag lets you collect data about orders in your online store. '
     },
     {
-      method: 'trackEcommerceOrder',
-      usage: 'eCommerce.trackEcommerceOrder()',
-      desc: 'Tracks a successfully placed e-commerce order with items present in a virtual cart (registered using addEcommerceItem).'
+      method: 'ecommerceProductDetailView',
+      usage: 'eCommerce.ecommerceProductDetailView(products: Product[])',
+      desc: 'An ecommerce product detail view tag lets you collect data about the views of the product detail page in your online store. '
     },
-    {
-      method: 'trackEcommerceCartUpdate',
-      usage: 'eCommerce.trackEcommerceCartUpdate(cartAmount: number)',
-      desc: 'Tracks items present in a virtual shopping cart (registered with addEcommerceItem)'
-    },
-    {
-      method: 'setEcommerceView',
-      usage:
-        'eCommerce.setEcommerceView(productSKU: string, productName?: string, productCategory?: string[], productPrice?: string)',
-      desc: 'Tracks product or category view. Must be followed by a page view.'
-    }
   ]
 }
 
+type LimitedArrayFiveStrings<T extends string[] = []> = [string, ...T] | [string, string, string, string, string];
+type Product = {
+  sku: string;
+  name?: string;
+  category?: LimitedArrayFiveStrings;
+  price?: number;
+  quantity?: number;
+  brand?: string;
+  variant?: string;
+  customDimensions?: object;
+}
+
+const products: Product[] = [
+  {
+    sku: 'sku-1',
+    name: 'Product 1',
+    category: ['product-category'],
+    brand: 'Brand 1',
+    variant: 'Variant 1',
+    price: 9.99,
+    customDimensions: {
+      dimension1: 'value1',
+      dimension2: 'value2'
+    }
+  },
+  {
+    sku: 'sku-2',
+    name: 'Product 2',
+    category: ['product-category'],
+    brand: 'Brand 2',
+    variant: 'Variant 2',
+    price: 19.98,
+    customDimensions: {
+      dimension1: 'value1',
+      dimension2: 'value2'
+    }
+  },
+  {
+    sku: 'sku-3',
+    name: 'Product 3',
+    category: ['product-category'],
+    brand: 'Brand 3',
+    variant: 'Variant 3',
+    price: 29.97,
+    customDimensions: {
+      dimension1: 'value1',
+      dimension2: 'value2'
+    }
+  },
+  {
+    sku: 'sku-4',
+    name: 'Product 4',
+    category: ['product-category'],
+    brand: 'Brand 4',
+    variant: 'Variant 4',
+    price: 39.96,
+    customDimensions: {
+      dimension1: 'value1',
+      dimension2: 'value2'
+    }
+  },
+  {
+    sku: 'sku-5',
+    name: 'Product 5',
+    category: ['product-category'],
+    brand: 'Brand 5',
+    variant: 'Variant 5',
+    price: 49.95,
+    customDimensions: {
+      dimension1: 'value1',
+      dimension2: 'value2'
+    }
+  },
+  {
+    sku: 'sku-6',
+    name: 'Product 6',
+    category: ['product-category'],
+    brand: 'Brand 6',
+    variant: 'Variant 6',
+    price: 59.94,
+    customDimensions: {
+      dimension1: 'value1',
+      dimension2: 'value2'
+    }
+  }
+]
+
+
 const eCommercePage = () => {
-  const [eCommerceItems, setECommerceInfo] = React.useState<any>('')
+  const [cart, setCart] = useState<Product[]>([])
+  const [isOpenProductDetails, setIsOpenProductDetails] = useState(false)
+
+  const handlelAddToCart = (product: Product) => {
+    eCommerce.ecommerceAddToCart([
+      {
+        ...product,
+        quantity: 1
+      }
+    ])
+
+    setCart([
+      ...cart,
+      {
+        ...product,
+        quantity: 1
+      }
+    ])
+  }
+
+  const handleCheckout = () => {
+    if (!cart.length) {
+      alert('Please add some products to the cart first')
+      return
+    }
+
+    const subTotal = cart.reduce((acc, product) => {
+      if (product.price) {
+        return acc + product.price
+      }
+      return acc
+    }, 0)
+
+    const tax = 10
+    const shipping = 4
+    const discount = 5
+
+    const paymentInformation = {
+      orderId: 'order-123',
+      grandTotal: subTotal + tax + shipping - discount,
+      subTotal,
+      tax,
+      shipping,
+      discount
+    }
+
+    eCommerce.ecommerceOrder(cart, paymentInformation)
+  }
+
+  const removeProduct = (product: Product) => {
+    const newCart = cart.filter((item) => item.sku !== product.sku)
+    setCart(newCart)
+    eCommerce.ecommerceRemoveFromCart(newCart)
+  }
+
+  const increaseProductQuantity = (product: Product) => {
+    const newCart = cart.map((item) => {
+      if (item.sku === product.sku && item.quantity) {
+        return {
+          ...item,
+          quantity: item.quantity + 1
+        }
+      }
+      return item
+    })
+
+    const subTotal = cart.reduce((acc, product) => {
+      if (product.price) {
+        return acc + product.price
+      }
+      return acc
+    }, 0)
+
+    const tax = 10
+    const shipping = 4
+    const discount = 5
+
+    setCart(newCart)
+    eCommerce.ecommerceCartUpdate(newCart, subTotal + tax + shipping - discount)
+  }
+
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+
+  const handleProductDetailViewOpen = (product: Product) => {
+    setSelectedProduct(product)
+    setIsOpenProductDetails(true)
+    eCommerce.ecommerceProductDetailView([product])
+  }
 
   return (
     <main style={pageStyles}>
@@ -78,11 +242,11 @@ const eCommercePage = () => {
         <img src={profile} style={imageStyle} />
         <p>PiwikPRO Gatsby Examples</p>
       </div>
-      <div>
+      <div  style={{ display: "flex", gap: 10, flexDirection: 'column', marginBottom: 20 }}>
         <h1>{pageData.title}</h1>
         <p>{pageData.description}</p>
         <h1>Import</h1>
-        <code>{`import { ContentTracking } from '@piwikpro/gatsby-piwik-pro';`}</code>
+        <code>{`import { ContentTracking } from '@piwikpro/gatsby-plugin-piwik-pro';`}</code>
         <h1>Methods</h1>
         {pageData.methods.map((method) => (
           <div key={method.method}>
@@ -97,80 +261,54 @@ const eCommercePage = () => {
           browser and track results on the console. Example below show the
           sample use of methods on the button click using onClick prop.
         </p>
-        <p>
-          <button
-            onClick={() => {
-              eCommerce.addEcommerceItem('1', 'Button 1', 'Items', 14, 1)
-            }}
-          >
-            eCommerce.addEcommerceItem #1
+        <div>
+          <h3>Product list</h3>
+          <ul style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {products.map((product) => (
+              <li key={product.sku} style={{ display: 'flex', gap: 10 }}>
+                <span>{product.name}</span>
+                <button onClick={() => handlelAddToCart(product)}>
+                  Add to cart
+                </button>
+                <button onClick={() => handleProductDetailViewOpen(product)}>
+                  View product detail
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Checkout</h3>
+          <h4>Payment details</h4>
+          {cart.map((product) => (
+            <div key={product.sku} style={{ display: 'flex', gap: 10 }}>
+              <span>{product.name}</span>
+              <span>{product.price}</span>
+              <span>{product.quantity} X &nbsp;</span>
+              <button onClick={() => increaseProductQuantity(product)}>add next</button>
+              <button onClick={() => removeProduct(product)}>remove</button>
+            </div>
+          ))}
+          {cart.length === 0 && <p>No products in the cart</p>}
+        </div>
+        <div>
+          <h3>Place order</h3>
+          <button onClick={handleCheckout}>Place order</button>
+        </div>
+        <div>
+          <h3>Product detail view</h3>
+          <button onClick={() => setIsOpenProductDetails(!isOpenProductDetails)}>
+            {isOpenProductDetails ? 'Close' : 'Show'} product details
           </button>
-          <button
-            onClick={() => {
-              eCommerce.addEcommerceItem('2', 'Button 2', 'Items', 12, 1)
-            }}
-          >
-            eCommerce.addEcommerceItem #2
-          </button>
-          <button
-            onClick={() => {
-              eCommerce.removeEcommerceItem('1')
-            }}
-          >
-            eCommerce.removeEcommerceItem #1
-          </button>
-          <button
-            onClick={() => {
-              eCommerce.removeEcommerceItem('2')
-            }}
-          >
-            eCommerce.removeEcommerceItem #2
-          </button>
-          <button
-            onClick={() => {
-              eCommerce.trackEcommerceOrder('id', 50)
-            }}
-          >
-            eCommerce.trackEcommerceOrder
-          </button>
-          <button
-            onClick={() => {
-              eCommerce.trackEcommerceCartUpdate(2)
-            }}
-          >
-            eCommerce.trackEcommerceCartUpdate
-          </button>
-          <button
-            onClick={() => {
-              eCommerce.setEcommerceView('1')
-            }}
-          >
-            eCommerce.setEcommerceView
-          </button>
-          <button
-            onClick={() => {
-              eCommerce.clearEcommerceCart()
-            }}
-          >
-            eCommerce.clearEcommerceCart
-          </button>{' '}
-          <button
-            onClick={() => {
-              const callAsyncMethods = async () => {
-                const ecItem = await eCommerce.getEcommerceItems()
-                setECommerceInfo(ecItem)
-              }
-
-              callAsyncMethods()
-            }}
-          >
-            eCommerce.getEcommerceItems
-          </button>
-        </p>
-        <p>
-          <code>eCommerce.getEcommerceItems()</code> -{' '}
-          {JSON.stringify(eCommerceItems)}
-        </p>
+          {isOpenProductDetails && (
+            <div>
+              <h5>Product details</h5>
+              <p>
+                {selectedProduct ? JSON.stringify(selectedProduct) : 'No product selected'}
+              </p>
+            </div>
+          )}
+        </div>
       </div>
       <Link to='/'>Back to main page</Link>
     </main>
