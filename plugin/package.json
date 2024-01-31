@@ -4,7 +4,7 @@
   "description": "Piwik PRO tracking library for Gatsby",
   "license": "MIT",
   "main": "dist/index.js",
-  "source": "src/index.jsx",
+  "source": "src/index.tsx",
   "author": "Piwik PRO Integration Team <integrations@piwik.pro>",
   "engines": {
     "node": ">=18.0.0"
@@ -22,7 +22,7 @@
     "url": "https://github.com/PiwikPRO/gatsby-plugin-piwik-pro.git"
   },
   "files": [
-    "./dist/*",
+    "dist",
     "gatsby-node.js",
     "gatsby-browser.js"
   ],
