@@ -240,6 +240,22 @@ Collection of methods to handle eCommerce events through the Piwik PRO API.
 
 ##### Methods
 
+```ts
+// maximum length of the array is 5
+type LimitedArrayFiveStrings<T extends string[] = []> = [string, ...T] | [string, string, string, string, string];
+
+type Product = {
+  sku: string;
+  name?: string;
+  category?: LimitedArrayFiveStrings<string[]>;
+  price?: number;
+  quantity?: number;
+  brand?: string;
+  variant?: string;
+  customDimensions?: object;
+};
+```
+
 - `ecommerceAddToCart(products: Product[])` - Tracks action of adding products to a cart.
 - `ecommerceRemoveFromCart(products: Product[])` - Tracks action of removing a products from a cart.
 - `ecommerceOrder(products: Product[], paymentInformation: PaymentInformation)` - Tracks conversion (including products and payment details).
