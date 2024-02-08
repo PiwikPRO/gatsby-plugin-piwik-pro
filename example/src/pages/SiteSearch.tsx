@@ -50,7 +50,7 @@ const SiteSearchPage = () => {
         <h1>{pageData.title}</h1>
         <p>{pageData.description}</p>
         <h1>Import</h1>
-        <code>{`import { ContentTracking } from '@piwikpro/gatsby-piwik-pro';`}</code>
+        <code>{`import { ContentTracking } from '@piwikpro/gatsby-plugin-piwik-pro';`}</code>
         <h1>Methods</h1>
         {pageData.methods.map((method) => (
           <div key={method.method}>

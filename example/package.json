@@ -13,10 +13,9 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@piwikpro/gatsby-plugin-piwik-pro": "file:../",
+    "@piwikpro/gatsby-plugin-piwik-pro": "file:../plugin",
     "dotenv": "^16.0.3",
-    "gatsby": "^5.12.7",
-    "gatsby-source-filesystem": "^5.12.0",
+    "gatsby": "^5.13.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
