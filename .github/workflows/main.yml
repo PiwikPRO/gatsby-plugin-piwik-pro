@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: ${{ steps.get_version.outputs.VERSION }}.tgz
-          path: piwikpro-gatsby-plugin-piwik-pro-${{ steps.get_version.outputs.VERSION }}.tgz
+          path: plugin/piwikpro-gatsby-plugin-piwik-pro-${{ steps.get_version.outputs.VERSION }}.tgz
           retention-days: 1
   publish-npm:
     needs: bump-and-build
