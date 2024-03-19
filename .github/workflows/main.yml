@@ -46,6 +46,7 @@ jobs:
       - run: yarn
       - run: npm --no-git-tag-version --allow-same-version version ${{ steps.get_version.outputs.VERSION }}
       - run: npm run build
+      - run: npm prepack
       - run: npm pack
       - name: 'Upload Build Artifatc ${{ steps.get_version.outputs.VERSION }}'
         uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
