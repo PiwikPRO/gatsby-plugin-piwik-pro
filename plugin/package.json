@@ -15,7 +15,8 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "prepack": "cp ../README.md README.md"
   },
   "repository": {
     "type": "git",
