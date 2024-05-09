@@ -1,13 +1,24 @@
-import {PageViews} from '@piwikpro/gatsby-plugin-piwik-pro'
+import React from "react";
+import { PageViews } from "@piwikpro/gatsby-plugin-piwik-pro";
+import { WrapPageElementBrowserArgs } from "gatsby";
+import { Layout } from "./src/components/Layout";
 
-const onRouteUpdate = () => {
+export const onRouteUpdate = () => {
   if (`requestAnimationFrame` in window) {
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => setTimeout(() => PageViews.trackPageView(), 0))
-    })
+      requestAnimationFrame(() =>
+        setTimeout(() => PageViews.trackPageView(), 0)
+      );
+    });
   } else {
-    setTimeout(() => PageViews.trackPageView(), 32)
+    setTimeout(() => PageViews.trackPageView(), 32);
   }
-}
+};
 
-export {onRouteUpdate}
+// global layout provider
+export const wrapPageElement = ({
+  element,
+  props,
+}: WrapPageElementBrowserArgs) => {
+  return <Layout {...props}>{element}</Layout>;
+};

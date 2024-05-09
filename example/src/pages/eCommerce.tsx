@@ -1,29 +1,8 @@
+import { eCommerce, type Product } from '@piwikpro/gatsby-plugin-piwik-pro'
+import { HeadFC } from 'gatsby'
 import * as React from 'react'
-import { eCommerce } from '@piwikpro/gatsby-plugin-piwik-pro'
-import { HeadFC, Link } from 'gatsby'
-import profile from '../images/profile.png'
-import { useState } from "react";
-
-const pageStyles = {
-  color: '#232129',
-  padding: 96
-}
-const headerStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  fontSize: '2.5rem',
-  fontWeight: '800',
-  lineHeight: 1.2
-}
-const imageStyle = {
-  borderRadius: 9999,
-  height: 144,
-  width: 144
-}
-const boldTextStyle = {
-  fontWeight: '800'
-}
+import { useState } from 'react'
+import { boldTextStyle } from '../utils/styles'
 
 const pageData = {
   title: 'eCommerce',
@@ -33,41 +12,31 @@ const pageData = {
     {
       method: 'ecommerceAddToCart',
       usage: 'eCommerce.ecommerceAddToCart(products: Product[])',
-      desc: 'An ecommerce add-to-cart tag lets you collect data about products added to the cart in your online store. '
+      desc: 'An ecommerce add-to-cart tag lets you collect data about products added to the cart in your online store. ',
     },
     {
       method: 'ecommerceRemoveFromCart',
       usage: 'eCommerce.ecommerceRemoveFromCart(products: Product[])',
-      desc: 'An ecommerce remove-from-cart tag lets you collect data about products removed from the cart in your online store. '
+      desc: 'An ecommerce remove-from-cart tag lets you collect data about products removed from the cart in your online store. ',
     },
     {
       method: 'ecommerceCartUpdate',
-      usage: 'eCommerce.ecommerceCartUpdate(products: Product[], grandTotal: number)',
-      desc: 'An ecommerce cart update tag lets you collect data about products added to the cart in your online store.'
+      usage:
+        'eCommerce.ecommerceCartUpdate(products: Product[], grandTotal: number)',
+      desc: 'An ecommerce cart update tag lets you collect data about products added to the cart in your online store.',
     },
     {
       method: 'ecommerceOrder',
-      usage: 'eCommerce.ecommerceOrder(products: Product[], paymentInformation: PaymentInformation)',
-      desc: 'An ecommerce order tag lets you collect data about orders in your online store. '
+      usage:
+        'eCommerce.ecommerceOrder(products: Product[], paymentInformation: PaymentInformation)',
+      desc: 'An ecommerce order tag lets you collect data about orders in your online store. ',
     },
     {
       method: 'ecommerceProductDetailView',
       usage: 'eCommerce.ecommerceProductDetailView(products: Product[])',
-      desc: 'An ecommerce product detail view tag lets you collect data about the views of the product detail page in your online store. '
+      desc: 'An ecommerce product detail view tag lets you collect data about the views of the product detail page in your online store. ',
     },
-  ]
-}
-
-type LimitedArrayFiveStrings<T extends string[] = []> = [string, ...T] | [string, string, string, string, string];
-type Product = {
-  sku: string;
-  name?: string;
-  category?: LimitedArrayFiveStrings;
-  price?: number;
-  quantity?: number;
-  brand?: string;
-  variant?: string;
-  customDimensions?: object;
+  ],
 }
 
 const products: Product[] = [
@@ -79,9 +48,9 @@ const products: Product[] = [
     variant: 'Variant 1',
     price: 9.99,
     customDimensions: {
-      dimension1: 'value1',
-      dimension2: 'value2'
-    }
+      1: 'value1',
+      2: 'value2',
+    },
   },
   {
     sku: 'sku-2',
@@ -91,9 +60,9 @@ const products: Product[] = [
     variant: 'Variant 2',
     price: 19.98,
     customDimensions: {
-      dimension1: 'value1',
-      dimension2: 'value2'
-    }
+      1: 'value1',
+      2: 'value2',
+    },
   },
   {
     sku: 'sku-3',
@@ -103,9 +72,9 @@ const products: Product[] = [
     variant: 'Variant 3',
     price: 29.97,
     customDimensions: {
-      dimension1: 'value1',
-      dimension2: 'value2'
-    }
+      1: 'value1',
+      2: 'value2',
+    },
   },
   {
     sku: 'sku-4',
@@ -115,9 +84,9 @@ const products: Product[] = [
     variant: 'Variant 4',
     price: 39.96,
     customDimensions: {
-      dimension1: 'value1',
-      dimension2: 'value2'
-    }
+      1: 'value1',
+      2: 'value2',
+    },
   },
   {
     sku: 'sku-5',
@@ -127,9 +96,9 @@ const products: Product[] = [
     variant: 'Variant 5',
     price: 49.95,
     customDimensions: {
-      dimension1: 'value1',
-      dimension2: 'value2'
-    }
+      1: 'value1',
+      2: 'value2',
+    },
   },
   {
     sku: 'sku-6',
@@ -139,12 +108,11 @@ const products: Product[] = [
     variant: 'Variant 6',
     price: 59.94,
     customDimensions: {
-      dimension1: 'value1',
-      dimension2: 'value2'
-    }
-  }
+      1: 'value1',
+      2: 'value2',
+    },
+  },
 ]
-
 
 const eCommercePage = () => {
   const [cart, setCart] = useState<Product[]>([])
@@ -154,16 +122,16 @@ const eCommercePage = () => {
     eCommerce.ecommerceAddToCart([
       {
         ...product,
-        quantity: 1
-      }
+        quantity: 1,
+      },
     ])
 
     setCart([
       ...cart,
       {
         ...product,
-        quantity: 1
-      }
+        quantity: 1,
+      },
     ])
   }
 
@@ -190,7 +158,7 @@ const eCommercePage = () => {
       subTotal,
       tax,
       shipping,
-      discount
+      discount,
     }
 
     eCommerce.ecommerceOrder(cart, paymentInformation)
@@ -207,7 +175,7 @@ const eCommercePage = () => {
       if (item.sku === product.sku && item.quantity) {
         return {
           ...item,
-          quantity: item.quantity + 1
+          quantity: item.quantity + 1,
         }
       }
       return item
@@ -237,81 +205,85 @@ const eCommercePage = () => {
   }
 
   return (
-    <main style={pageStyles}>
-      <div style={headerStyle}>
-        <img src={profile} style={imageStyle} />
-        <p>PiwikPRO Gatsby Examples</p>
+    <div
+      style={{
+        display: 'flex',
+        gap: 10,
+        flexDirection: 'column',
+        marginBottom: 20,
+      }}
+    >
+      <h1>{pageData.title}</h1>
+      <p>{pageData.description}</p>
+      <h1>Import</h1>
+      <code>{`import { ContentTracking } from '@piwikpro/gatsby-plugin-piwik-pro';`}</code>
+      <h1>Methods</h1>
+      {pageData.methods.map((method) => (
+        <div key={method.method}>
+          <p style={boldTextStyle}>{method.method}</p>
+          <p>{method.desc}</p>
+          <code>{method.usage}</code>
+        </div>
+      ))}
+      <h1>Sample usage</h1>
+      <p>
+        To see tracking methods usage please turn developers tools in your
+        browser and track results on the console. Example below show the sample
+        use of methods on the button click using onClick prop.
+      </p>
+      <div>
+        <h3>Product list</h3>
+        <ul style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {products.map((product) => (
+            <li key={product.sku} style={{ display: 'flex', gap: 10 }}>
+              <span>{product.name}</span>
+              <button onClick={() => handlelAddToCart(product)}>
+                Add to cart
+              </button>
+              <button onClick={() => handleProductDetailViewOpen(product)}>
+                View product detail
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div  style={{ display: "flex", gap: 10, flexDirection: 'column', marginBottom: 20 }}>
-        <h1>{pageData.title}</h1>
-        <p>{pageData.description}</p>
-        <h1>Import</h1>
-        <code>{`import { ContentTracking } from '@piwikpro/gatsby-plugin-piwik-pro';`}</code>
-        <h1>Methods</h1>
-        {pageData.methods.map((method) => (
-          <div key={method.method}>
-            <p style={boldTextStyle}>{method.method}</p>
-            <p>{method.desc}</p>
-            <code>{method.usage}</code>
+      <div>
+        <h3>Checkout</h3>
+        <h4>Payment details</h4>
+        {cart.map((product) => (
+          <div key={product.sku} style={{ display: 'flex', gap: 10 }}>
+            <span>{product.name}</span>
+            <span>{product.price}</span>
+            <span>{product.quantity} X &nbsp;</span>
+            <button onClick={() => increaseProductQuantity(product)}>
+              add next
+            </button>
+            <button onClick={() => removeProduct(product)}>remove</button>
           </div>
         ))}
-        <h1>Sample usage</h1>
-        <p>
-          To see tracking methods usage please turn developers tools in your
-          browser and track results on the console. Example below show the
-          sample use of methods on the button click using onClick prop.
-        </p>
-        <div>
-          <h3>Product list</h3>
-          <ul style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {products.map((product) => (
-              <li key={product.sku} style={{ display: 'flex', gap: 10 }}>
-                <span>{product.name}</span>
-                <button onClick={() => handlelAddToCart(product)}>
-                  Add to cart
-                </button>
-                <button onClick={() => handleProductDetailViewOpen(product)}>
-                  View product detail
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3>Checkout</h3>
-          <h4>Payment details</h4>
-          {cart.map((product) => (
-            <div key={product.sku} style={{ display: 'flex', gap: 10 }}>
-              <span>{product.name}</span>
-              <span>{product.price}</span>
-              <span>{product.quantity} X &nbsp;</span>
-              <button onClick={() => increaseProductQuantity(product)}>add next</button>
-              <button onClick={() => removeProduct(product)}>remove</button>
-            </div>
-          ))}
-          {cart.length === 0 && <p>No products in the cart</p>}
-        </div>
-        <div>
-          <h3>Place order</h3>
-          <button onClick={handleCheckout}>Place order</button>
-        </div>
-        <div>
-          <h3>Product detail view</h3>
-          <button onClick={() => setIsOpenProductDetails(!isOpenProductDetails)}>
-            {isOpenProductDetails ? 'Close' : 'Show'} product details
-          </button>
-          {isOpenProductDetails && (
-            <div>
-              <h5>Product details</h5>
-              <p>
-                {selectedProduct ? JSON.stringify(selectedProduct) : 'No product selected'}
-              </p>
-            </div>
-          )}
-        </div>
+        {cart.length === 0 && <p>No products in the cart</p>}
       </div>
-      <Link to='/'>Back to main page</Link>
-    </main>
+      <div>
+        <h3>Place order</h3>
+        <button onClick={handleCheckout}>Place order</button>
+      </div>
+      <div>
+        <h3>Product detail view</h3>
+        <button onClick={() => setIsOpenProductDetails(!isOpenProductDetails)}>
+          {isOpenProductDetails ? 'Close' : 'Show'} product details
+        </button>
+        {isOpenProductDetails && (
+          <div>
+            <h5>Product details</h5>
+            <p>
+              {selectedProduct
+                ? JSON.stringify(selectedProduct)
+                : 'No product selected'}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
   )
 }
 

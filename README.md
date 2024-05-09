@@ -1,24 +1,10 @@
+
+<a name="readmemd"></a>
+
+
 # Piwik PRO Library for Gatsby
 
 Dedicated Piwik PRO library that helps with implementing Piwik PRO Tag Manager and the Piwik PRO tracking client in Gatsby applications.
-
-- [Installation](#installation)
-  - [npm/yarn](#npm)
-  - [Basic setup](#basic-setup)
-  - [Track page views](#track-page-views)
-- [Supported methods list](#supported-methods-list-and-usage)
-  - [Analytics](#analytics)
-    - [Page Views](#pages-views)
-    - [User Management](#user-management)
-    - [Custom Events](#custom-events)
-    - [Site search](#site-search)
-    - [E-Commerce](#e-commerce)
-    - [Content Tracking](#content-tracking)
-    - [Download and outlink](#download-and-outlink)
-    - [Goal Conversions](#goal-conversions)
-    - [Custom Dimensions](#custom-dimensions)
-  - [Tag manager](#tag-manager)
-    - [DataLayer](#datalayer)
 
 ## Installation
 
@@ -82,7 +68,7 @@ const onRouteUpdate = () => {
 export {onRouteUpdate}
 ```
 
-## Supported methods list and usage
+## Example Usage
 
 To use methods in your page you need to import them from the library like on example.
 
@@ -114,442 +100,1248 @@ useEffect(() => {
 
 Below you can view the sample usage of the avialable methods from modules.
 
-### Analytics
 
-#### Pages views
+<a name="modulesmd"></a>
 
-```ts
-import { PageViews } from '@piwikpro/gatsby-plugin-piwik-pro'
-```
 
-```ts
-PageViews.trackPageView('optional title')
-```
 
-#### User management
+## Table of contents
 
-Collection of methods to handle users and visitors data through the Piwik PRO API.
+### Namespaces
 
-##### Methods
+- [ContentTracking](#modulescontenttrackingmd)
+- [CookieManagement](#modulescookiemanagementmd)
+- [CustomDimensions](#modulescustomdimensionsmd)
+- [CustomEvent](#modulescustomeventmd)
+- [DataLayer](#modulesdatalayermd)
+- [DownloadAndOutlink](#modulesdownloadandoutlinkmd)
+- [GoalConversions](#modulesgoalconversionsmd)
+- [PageViews](#modulespageviewsmd)
+- [SiteSearch](#modulessitesearchmd)
+- [UserManagement](#modulesusermanagementmd)
+- [eCommerce](#modulesecommercemd)
 
-- `UserManagement.setUserId(userID)` - Sets user ID, which will help identify a user of your application across many devices and browsers.
-  - `userID` (string) – Required Non-empty, unique ID of a user in application
-- `UserManagement.resetUserId()` - Clears previously set `userID`, e.g. when visitor logs out.
-- `UserManagement.getUserId()` - Returns currently used `userID` value (set with `setUserId()`).
-- `UserManagement.getVisitorId()` - Returns 16-character hex ID of the visitor.
-- `UserManagement.getVisitorInfo()` - Returns visitor information. Return type `string[]`. String array with the following visitor info:
-  - `[0]` - new visitor flag indicating new, ("1") or returning ("0") visitor
-  - `[1]` - visitor ID (16-character hex number)
-  - `[2]` - first visit timestamp (UNIX epoch time)
-  - `[3]` - previous visit count ("0" for first visit)
-  - `[4]` - current visit timestamp (UNIX epoch time)
-  - `[5]` - last visit timestamp (UNIX epoch time or "" if N/A)
-  - `[6]` - last e-commerce order timestamp (UNIX epoch time or "" if N/A)
+### Type Aliases
 
-##### Example usage
+- [Dimensions](#dimensions)
+- [PaymentInformation](#paymentinformation)
+- [Product](#product)
+- [VisitorInfo](#visitorinfo)
 
-```ts
-import { UserManagement } from '@piwikpro/gatsby-plugin-piwik-pro'
-```
+### Variables
 
-```ts
-UserManagement.setUserId('UserId')
+- [default](#default)
 
-UserManagement.resetUserId()
-```
+## Type Aliases
 
-Some of the methods are getting data from the API and they need to be called asynchronously. They provide data that can be shown on the page. This need to be done with defining async function in your hook body and setting the state of the variable. Like on example below.
+### Dimensions
 
-```ts
-const [userId, setUserId] = useState<string>('')
-const [visitorId, setVisitorId] = useState<string>('')
-const [visitorInfo, setVisitorInfo] = useState<any>('')
+Ƭ **Dimensions**: `Record`\<\`dimension$\{number}\`, `string`\>
 
-const callAsyncMethods = async () => {
-  const uId = await UserManagement.getUserId()
-  setUserId(uId)
+___
 
-  const vId = await UserManagement.getVisitorId()
-  setVisitorId(vId)
+### PaymentInformation
 
-  const vInfo = await UserManagement.getVisitorInfo()
-  setVisitorInfo(vInfo)
-}
+Ƭ **PaymentInformation**: `Object`
 
-callAsyncMethods()
-```
+#### Type declaration
 
-You have access to those variables in you page body. Example access below.
+| Name | Type |
+| :------ | :------ |
+| `discount?` | `number` \| `string` |
+| `grandTotal` | `number` \| `string` |
+| `orderId` | `string` |
+| `shipping?` | `number` \| `string` |
+| `subTotal?` | `number` \| `string` |
+| `tax?` | `number` \| `string` |
 
-```html
-<p><code>UserManamement.getUserId()</code> - {userId}</p>
-<p><code>UserManamement.getVisitorId()</code> - {visitorId}</p>
-<p>
-  <code>UserManamement.getVisitorInfo()</code> -{' '}
-  {JSON.stringify(visitorInfo)}
-</p>
-```
+___
 
-#### Custom Events
+### Product
 
-Collection of methods to handle custom events, not described in the other categories.
+Ƭ **Product**: `Object`
 
-##### Methods
+#### Type declaration
 
-- `CustomEvent.trackEvent(category, action[, name[, value[, dimensions]]])` - Tracks custom event, e.g. when visitor interacts with the page.
-  - `category (string)` – Required Event category
-  - `action (string)` – Required Event action
-  - `name (string)` – Optional Event name
-  - `value (number)` – Optional Event value
+| Name | Type |
+| :------ | :------ |
+| `brand?` | `string` |
+| `category?` | `LimitedArrayFiveStrings` |
+| `customDimensions?` | `Record`\<`number`, `string`\> |
+| `name?` | `string` |
+| `price?` | `number` |
+| `quantity?` | `number` |
+| `sku` | `string` |
+| `variant?` | `string` |
 
-##### Example usage
+___
 
-```ts
-import { CustomEvent } from '@piwikpro/gatsby-plugin-piwik-pro'
-```
+### VisitorInfo
 
-```ts
-CustomEvent.trackEvent('Post', pageData.title)
-```
+Ƭ **VisitorInfo**: [isNew: "0" \| "1", visitorId: string, firstVisitTS: number, previousVisitCount: string \| number, currentVisitTS: number, lastVisitTS: number \| "", lastEcommerceOrderTS: number \| ""]
 
-#### Site search
+## Variables
 
-Collection of methods to track site search data, through the Piwik PRO API.
+### default
 
-##### Methods
+• `Const` **default**: `Object`
 
-- `SiteSearch.trackSiteSearch(keyword[, category[, resultCount[, dimensions]]])` - Tracks search requests on a website.
-  - `keyword (string)` – Required What keyword the visitor entered into the search box
-  - `category (string|Array<string>)` – Optional Category selected in the search engine
-  - `searchCount (number)` – Optional The number of search results shown
-  - `dimensions (object)` – Optional Custom dimensions to pass along with the site search event
+#### Type declaration
 
-##### Example usage
+| Name | Type |
+| :------ | :------ |
+| `getInitScript` | typeof `PiwikPro.getInitScript` |
+| `initialize` | typeof `PiwikPro.init` |
 
-```ts
-import { SiteSearch } from '@piwikpro/gatsby-plugin-piwik-pro'
-```
 
-```ts
-SiteSearch.trackSiteSearch('keyword', 'category', 5)
-```
+<a name="modulescontenttrackingmd"></a>
 
-#### E-Commerce
 
-Collection of methods to handle eCommerce events through the Piwik PRO API.
+# ContentTracking
 
-##### Methods
+## Table of contents
 
-```ts
-// maximum length of the array is 5
-type LimitedArrayFiveStrings<T extends string[] = []> = [string, ...T] | [string, string, string, string, string];
 
-type Product = {
-  sku: string;
-  name?: string;
-  category?: LimitedArrayFiveStrings<string[]>;
-  price?: number;
-  quantity?: number;
-  brand?: string;
-  variant?: string;
-  customDimensions?: object;
-};
-```
+- [logAllContentBlocksOnPage](#logallcontentblocksonpage)
+- [trackAllContentImpressions](#trackallcontentimpressions)
+- [trackContentImpression](#trackcontentimpression)
+- [trackContentImpressionsWithinNode](#trackcontentimpressionswithinnode)
+- [trackContentInteraction](#trackcontentinteraction)
+- [trackContentInteractionNode](#trackcontentinteractionnode)
+- [trackVisibleContentImpressions](#trackvisiblecontentimpressions)
 
-- `ecommerceAddToCart(products: Product[])` - Tracks action of adding products to a cart.
-- `ecommerceRemoveFromCart(products: Product[])` - Tracks action of removing a products from a cart.
-- `ecommerceOrder(products: Product[], paymentInformation: PaymentInformation)` - Tracks conversion (including products and payment details).
-- `ecommerceCartUpdate(products: Product[], grandTotal: PaymentInformation['grandTotal'])` - Tracks current state of a cart.
-- `ecommerceProductDetailView(products: Product[])` - Tracks product or category view. Must be followed by a page view.
+## Functions
 
-Deprecated methods:
-- `eCommerce.addEcommerceItem(productSKU[, productName[, productCategory[, productPrice[, productQuantity]]]])` - Adds a product to a virtual shopping cart. If a product with the same SKU is in the cart, it will be removed first. Does not send any data to the Collecting & Processing Pipeline.
+### logAllContentBlocksOnPage
 
-  - `productSKU (string)` – Required Product stock-keeping unit
-  - `productName (string)` – Optional Product name
-  - `productCategory (string|Array<string>)` – Optional Product category or an array of up to 5 categories
-  - `productPrice (number)` – Optional Product price
-  - `productQuantity (number)` – Optional The number of units
+▸ **logAllContentBlocksOnPage**(): `void`
 
-- `eCommerce.removeEcommerceItem(productSKU)` - Removes a product with the provided SKU from a virtual shopping cart. If multiple units of that product are in the virtual cart, all of them will be removed. Does not send any data to the Collecting & Processing Pipeline.
+Print all content blocks to the console for debugging purposes
 
-  - `productSKU (string)` – Required stock-keeping unit of a product to remove
+#### Returns
 
-- `eCommerce.clearEcommerceCart()` - Removes all items from a virtual shopping cart. Does not send any data to the Collecting & Processing Pipeline.
+`void`
 
-- `eCommerce.getEcommerceItems()` - Returns a copy of items from a virtual shopping cart. Does not send any data to the Collecting & Processing Pipeline. Returns: Object containing all tracked items (format: `Object<productSKU, Array[productSKU, productName, productCategory, price, quantity]>`)
+___
 
-- `eCommerce.setEcommerceView([productSKU[, productName[, productCategory[, productPrice]]]])` - Tracks product or category view. Must be followed by a page view.
+### trackAllContentImpressions
 
-  - `productSKU (string)` – Optional Product stock-keeping unit
-  - `productName (string)` – Optional Product name
-  - `productCategory (string|Array<string>)` – Optional Category or an array of up to 5 categories
-  - `productPrice (number)` – Optional Product price
+▸ **trackAllContentImpressions**(): `void`
 
-- `eCommerce.trackEcommerceCartUpdate(cartAmount)` - Tracks items present in a virtual shopping cart (registered with addEcommerceItem).
+Scans the entire DOM for content blocks and tracks impressions after all page
+elements load. It does not send duplicates on repeated calls unless
+trackPageView was called in between trackAllContentImpressions invocations
 
-  - `cartAmount` (number) – Required The total value of items in the cart
+#### Returns
 
-- `eCommerce.trackEcommerceOrder(orderID, orderGrandTotal[, orderSubTotal[, orderTax[, orderShipping[, orderDiscount]]]])` - Tracks a successfully placed e-commerce order with items present in a virtual cart (registered using addEcommerceItem).
-  - `orderID (string)` – Required String uniquely identifying an order
-  - `orderGrandTotal (number)` – Required Order Revenue grand total - tax, shipping and discount included
-  - `orderSubTotal (number)`– Optional Order subtotal - without shipping
-  - `orderTax (number)`– Optional Order tax amount
-  - `orderShipping (number)` – Optional Order shipping cost
-  - `orderDiscount (number)` – Optional Order discount amount
+`void`
 
-##### Example usage
+___
 
-```ts
-import { eCommerce } from '@piwikpro/gatsby-plugin-piwik-pro'
-```
+### trackContentImpression
 
-```ts
-eCommerce.addEcommerceItem('1', 'ProductName', 'Items', 69, 1)
+▸ **trackContentImpression**(`contentName`, `contentPiece`, `contentTarget`): `void`
 
-eCommerce.removeEcommerceItem('1')
+#### Parameters
 
-eCommerce.trackEcommerceOrder('id', 50)
+| Name | Type |
+| :------ | :------ |
+| `contentName` | `string` |
+| `contentPiece` | `string` |
+| `contentTarget` | `string` |
 
-eCommerce.trackEcommerceCartUpdate(2)
+#### Returns
 
-eCommerce.setEcommerceView('1')
+`void`
 
-eCommerce.clearEcommerceCart()
-```
+___
 
-Some of the methods are getting data from the API and they need to be called asynchronously. They provide data that can be shown no the page. This need to be done with defining async function in your hook body and setting the state of the variable. Like on example below.
+### trackContentImpressionsWithinNode
 
-```ts
-const [eCommerceItems, setECommerceInfo] = useState<any>('')
+▸ **trackContentImpressionsWithinNode**(`domNode`): `void`
 
-const callAsyncMethods = async () => {
-  const ecItem = await eCommerce.getEcommerceItems()
-  setECommerceInfo(ecItem)
-}
+#### Parameters
 
-callAsyncMethods()
-```
+| Name | Type |
+| :------ | :------ |
+| `domNode` | `Node` |
 
-You have access to those variables in you page body. Example below.
+#### Returns
 
-```html
-<p>
-  <code>eCommerce.getEcommerceItems()</code> -{' '}
-  {JSON.stringify(eCommerceItems)}
-</p>
-```
+`void`
 
-#### Content Tracking
+___
 
-Collection of methods to track impressions through the Piwik PRO API.
+### trackContentInteraction
 
-##### Methods
+▸ **trackContentInteraction**(`contentInteraction`, `contentName`, `contentPiece`, `contentTarget`): `void`
 
-- `ContentTracking.trackContentImpression(contentName, contentPiece, contentTarget)` - Tracks manual content impression event.
+Tracks manual content interaction event
 
-  - `contentName (string)` – Required Name of a content block
-  - `contentPiece (string)` – Required Name of the content that was displayed (e.g. link to an image)
-  - `contentTarget (string)` – Required Where the content leads to (e.g. URL of some external website)
+#### Parameters
 
-- `ContentTracking.trackContentInteraction(contentInteraction, contentName, contentPiece, contentTarget)` - Tracks manual content interaction event.
-  - `contentInteraction (string)` – Required Type of interaction (e.g. "click")
-  - `contentName (string)` – Required Name of a content block
-  - `contentPiece` (string) – Required Name of the content that was displayed (e.g. link to an image)
-  - `contentTarget (string)` – Required Where the content leads to (e.g. URL of some external website)
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `contentInteraction` | `string` | Type of interaction (e.g. "click") |
+| `contentName` | `string` | Name of a content block |
+| `contentPiece` | `string` | Name of the content that was displayed (e.g. link to an image) |
+| `contentTarget` | `string` | Where the content leads to (e.g. URL of some external website) |
 
-##### Example usage
-```ts
-import { ContentTracking } from '@piwikpro/gatsby-plugin-piwik-pro'
-```
+#### Returns
 
-```ts
-ContentTracking.trackContentImpression(
-  'contentName',
-  'contentPiece',
-  'contentTarget'
-)
+`void`
 
-ContentTracking.trackContentInteraction(
-  'contentInteracion',
-  'contentName',
-  'contentPiece',
-  'contentTarget'
-)
-```
+___
 
-#### Download and outlink
+### trackContentInteractionNode
 
-Collection of methods to manually tracks outlink or download events through the Piwik PRO API.
+▸ **trackContentInteractionNode**(`domNode`, `contentInteraction?`): `void`
 
-##### Methods
+Tracks interaction with a block in domNode. Can be called from code placed in onclick attribute
 
-- `DownloadAndOutlink.trackLink(linkAddress, linkType[, dimensions[, callback]])` - Manually tracks outlink or download event with provided values.
+#### Parameters
 
-  - `linkAddress (string)` – Required URL address of the link
-  - `linkType (string)` – Required Type of the link, "link" for outlink, "download" for download
-  - `dimensions (object)` – Optional Custom dimensions to pass along with the link event
-  - `callback (function)` – Optional Function that should be called after tracking the link
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `domNode` | `Node` | Node marked as content block or containing content blocks. If content block can’t be found, nothing will tracked. |
+| `contentInteraction?` | `string` | Name of interaction (e.g. "click") |
 
-- `DownloadAndOutlink.enableLinkTracking([trackMiddleAndRightClicks])` - Enables automatic link tracking. By default, left, right and middle clicks on links will be treated as opening a link. Opening a link to an external site (different domain) creates an outlink event. Opening a link to a downloadable file creates a download event.
+#### Returns
 
-  - `trackMiddleAndRightClicks (boolean)` – Optional Whether to treat middle and right clicks as opening a link. The default value is true.
+`void`
 
-- `DownloadAndOutlink.setLinkClasses(classes)` - Sets a list of class names that indicate whether a link is an outlink and not download.
+___
 
-  - `classes (Array<string>)` – Required CSS class name or an array of class names
+### trackVisibleContentImpressions
 
-- `DownloadAndOutlink.setDownloadClasses(classes)` - Sets a list of class names that indicate whether a list is a download and not an outlink.
+▸ **trackVisibleContentImpressions**(`checkOnScroll?`, `watchInterval?`): `void`
 
-  - `classes (Array<string>)` – Required CSS class name or an array of class names
+Scans DOM for all visible content blocks and tracks impressions
 
-- `DownloadAndOutlink.addDownloadExtensions(extensions)`
-  Adds new extensions to the download extensions list.
+#### Parameters
 
-  - `extensions (Array<string>)` – Required List of extensions to be added as an array, e.g. `["7z","apk","mp4"]`.
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `checkOnScroll?` | `boolean` | Whether to scan for visible content on scroll event |
+| `watchInterval?` | `number` | Delay, in milliseconds, between scans for new visible content. Periodic checks can be disabled by passing 0 |
 
-- `DownloadAndOutlink.removeDownloadExtensions(extensions)` - Removes extensions from the download extensions list.
+#### Returns
 
-  - `extensions (Array<string>)` – Required List of extensions to remove as an array, e.g. ["zip", "rar"].
+`void`
 
-- `DownloadAndOutlink.setLinkTrackingTimer(milliseconds)` - When a visitor produces an events and closes the page immediately afterwards, e.g. when opening a link, the request might get cancelled. To avoid loosing the last event this way, JavaScript Tracking Client will lock the page for a fraction of a second (if wait time hasn’t passed), giving the request time to reach the Collecting & Processing Pipeline. `setLinkTrackingTimer` allows to change the default lock/wait time of 500ms.
 
-  - `milliseconds (number)` – Required How many milliseconds a request needs to reach the Collecting & Processing Pipeline.
+<a name="modulescookiemanagementmd"></a>
 
-- `DownloadAndOutlink.setIgnoreClasses(classes)` - Set a list of class names that indicate a link should not be tracked.
-  - `classes (Array<string>)` – Required CSS class name or an array of class names
 
-##### Example usage
+# CookieManagement
 
-```ts
-import { DownloadAndOutlink } from '@piwikpro/gatsby-plugin-piwik-pro'
-```
+## Table of contents
 
-```ts
-DownloadAndOutlink.trackLink('http://localhost:8000', 'link')
 
-DownloadAndOutlink.enableLinkTracking(true)
+- [deleteCookies](#deletecookies)
+- [disableCookies](#disablecookies)
+- [enableCookies](#enablecookies)
+- [getConfigVisitorCookieTimeout](#getconfigvisitorcookietimeout)
+- [getCookieDomain](#getcookiedomain)
+- [getCookiePath](#getcookiepath)
+- [getSessionCookieTimeout](#getsessioncookietimeout)
+- [hasCookies](#hascookies)
+- [setCookieDomain](#setcookiedomain)
+- [setCookieNamePrefix](#setcookienameprefix)
+- [setCookiePath](#setcookiepath)
+- [setReferralCookieTimeout](#setreferralcookietimeout)
+- [setSecureCookie](#setsecurecookie)
+- [setSessionCookieTimeout](#setsessioncookietimeout)
+- [setVisitorCookieTimeout](#setvisitorcookietimeout)
+- [setVisitorIdCookie](#setvisitoridcookie)
 
-DownloadAndOutlink.setLinkClasses(['this-is-an-outlink'])
+## Functions
 
-DownloadAndOutlink.setDownloadClasses(['this-is-a-download'])
+### deleteCookies
 
-DownloadAndOutlink.addDownloadExtensions(['zip', 'rar'])
+▸ **deleteCookies**(): `void`
 
-DownloadAndOutlink.removeDownloadExtensions(['doc', 'xls'])
+Deletes existing tracking cookies on the next page view
 
-DownloadAndOutlink.setLinkTrackingTimer(10)
+#### Returns
 
-DownloadAndOutlink.setIgnoreClasses(['do-not-track'])
-```
+`void`
 
-Some of the methods are getting data from the API and they need to be called asynchronously. They provide data that can be shown no the page. This need to be done with defining async function in your hook body and setting the state of the variable. Like on example below.
+___
 
-```ts
-const [linkTrackingTimer, setLinkTrackingTimer] = useState<string>('')
+### disableCookies
 
-const callAsyncMethods = async () => {
-  const lTrackingTimer = await DownloadAndOutlink.getLinkTrackingTimer()
-  setLinkTrackingTimer(lTrackingTimer)
-}
-```
+▸ **disableCookies**(): `void`
 
-You have access to those variables in you page body. Example below.
+Disables all first party cookies. Existing cookies will be deleted in the next page view
 
-```html
-<p>
-  <code>DownloadAndOutlink.getLinkTrackingTimer()</code> -{' '}
-  {linkTrackingTimer}
-</p>
-```
+#### Returns
 
-#### Goal Conversions
+`void`
 
-Collection of methods to manually tracks goal conversions through the Piwik PRO API.
+___
 
-##### Methods
+### enableCookies
 
-- `GoalConversions.trackGoal(goalID[, conversionValue[, dimensions]])` - Tracks manual goal conversion. `goalID (number|string)` – Required Goal ID (integer or UUID), `conversionValue (number)` – Optional Conversion value (revenue), `dimensions (object)` – Optional Custom dimensions to pass along with the conversion
+▸ **enableCookies**(): `void`
 
-##### Example usage
+Enables all first party cookies. Cookies will be created on the next tracking request
 
-```ts
-import { GoalConversions } from '@piwikpro/gatsby-plugin-piwik-pro'
-```
+#### Returns
 
-```ts
-GoalConversions.trackGoal(1, 30)
-```
+`void`
 
-#### Custom Dimensions
+___
 
-Collection of methods to manage custom dimentsions through the Piwik PRO API.
+### getConfigVisitorCookieTimeout
 
-###### Methods
+▸ **getConfigVisitorCookieTimeout**(): `Promise`\<`number`\>
 
-- `CustomDimensions.setCustomDimensionValue(customDimensionID, customDimensionValue` - Sets a custom dimension to be used later.
+Returns expiration time of visitor cookies (in milliseconds)
 
-  - `customDimensionID (number)` – Required ID of a custom dimension, `customDimensionValue (string)` – Required Value of a custom dimension
+#### Returns
 
-- `CustomDimensions.deleteCustomDimension(customDimensionID)` - Removes a custom dimension with the specified ID.
+`Promise`\<`number`\>
 
-  - `customDimensionID (number)` – Required ID of a custom dimension
+___
 
-- `CustomDimensions.getCustomDimensionValue(customDimensionID)`- Returns the value of a custom dimension with the specified ID. Returns: Value set with `setCustomDimensionValue` (e.g. `loginStatus`). Return type: `string`
-  - `customDimensionID (number) `– Required ID of a custom dimension.
+### getCookieDomain
 
-###### Example usage
+▸ **getCookieDomain**(): `Promise`\<`string`\>
 
-```ts
-import { CustomDimensions } from '@piwikpro/gatsby-plugin-piwik-pro'
-```
+Returns domain of the analytics tracking cookies (set with setCookieDomain()).
 
-```ts
-CustomDimensions.setCustomDimensionValue('customDimensionId', 'value')
+#### Returns
 
-CustomDimensions.getCustomDimensionValue('customDimensionId')
+`Promise`\<`string`\>
 
-CustomDimensions.deleteCustomDimension('customDimensionId')
-```
+___
 
-Some of the methods are getting data from the API and they need to be called asynchronously. They provide data that can be shown on the page. This need to be done with defining async function in your hook body and setting the state of the variable. Like on example below.
+### getCookiePath
 
-```ts
-const [customDimValue, setCustomDimValue] = useState<string>('')
+▸ **getCookiePath**(): `Promise`\<`string`\>
 
-const callAsyncMethods = async () => {
-  const cDimValue = await CustomDimensions.getCustomDimensionValue(12)
-  setCustomDimValue(cDimValue)
-}
+Returns the analytics tracking cookies path
 
-callAsyncMethods()
-```
+#### Returns
 
-You have access to those variables in you page body. Example access below.
+`Promise`\<`string`\>
 
-```html
-<p>
-  <code>CustomDimensions.getCustomDimensionValue()</code> - {customDimValue}
-</p>
-```
+___
 
-### Tag manager
+### getSessionCookieTimeout
 
-#### DataLayer
+▸ **getSessionCookieTimeout**(): `Promise`\<`number`\>
 
-A data layer is a data structure on your site or app where you can store data and access it with tools like Tag Manager. You can include any data you want in your data layer.
+Returns expiration time of session cookies
 
-###### Methods
+#### Returns
 
-- `DataLayer.push(data)` - Adds an event to a data layer.
-  - `data` - Required data value without type.
+`Promise`\<`number`\>
 
-###### Example usage
+___
 
-```ts
-import { DataLayer } from '@piwikpro/gatsby-plugin-piwik-pro'
-```
+### hasCookies
 
-```ts
-DataLayer.push('data')
-```
+▸ **hasCookies**(): `Promise`\<`boolean`\>
+
+Returns true if cookies are enabled in this browser
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+___
+
+### setCookieDomain
+
+▸ **setCookieDomain**(`domain`): `void`
+
+Sets the domain for the analytics tracking cookies
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `domain` | `string` |
+
+#### Returns
+
+`void`
+
+___
+
+### setCookieNamePrefix
+
+▸ **setCookieNamePrefix**(`prefix`): `void`
+
+Sets the prefix for analytics tracking cookies. Default is "_pk_".
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `prefix` | `string` |
+
+#### Returns
+
+`void`
+
+___
+
+### setCookiePath
+
+▸ **setCookiePath**(`path`): `void`
+
+Sets the analytics tracking cookies path
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `path` | `string` |
+
+#### Returns
+
+`void`
+
+___
+
+### setReferralCookieTimeout
+
+▸ **setReferralCookieTimeout**(`seconds`): `void`
+
+Sets the expiration time of referral cookies
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `seconds` | `number` |
+
+#### Returns
+
+`void`
+
+___
+
+### setSecureCookie
+
+▸ **setSecureCookie**(`secure`): `void`
+
+Toggles the secure cookie flag on all first party cookies (if you are using HTTPS)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `secure` | `boolean` |
+
+#### Returns
+
+`void`
+
+___
+
+### setSessionCookieTimeout
+
+▸ **setSessionCookieTimeout**(`seconds`): `void`
+
+Sets the expiration time of session cookies
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `seconds` | `number` |
+
+#### Returns
+
+`void`
+
+___
+
+### setVisitorCookieTimeout
+
+▸ **setVisitorCookieTimeout**(`seconds`): `void`
+
+Sets the expiration time of visitor cookies
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `seconds` | `number` |
+
+#### Returns
+
+`void`
+
+___
+
+### setVisitorIdCookie
+
+▸ **setVisitorIdCookie**(): `void`
+
+Sets cookie containing [analytics ID](https://developers.piwik.pro/en/latest/glossary.html#term-analytics-id) in browser
+
+#### Returns
+
+`void`
+
+
+<a name="modulescustomdimensionsmd"></a>
+
+
+# CustomDimensions
+
+## Table of contents
+
+
+- [deleteCustomDimension](#deletecustomdimension)
+- [getCustomDimensionValue](#getcustomdimensionvalue)
+- [setCustomDimensionValue](#setcustomdimensionvalue)
+
+## Functions
+
+### deleteCustomDimension
+
+▸ **deleteCustomDimension**(`customDimensionId`): `void`
+
+Removes a custom dimension with the specified ID.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `customDimensionId` | `string` \| `number` |
+
+#### Returns
+
+`void`
+
+___
+
+### getCustomDimensionValue
+
+▸ **getCustomDimensionValue**(`customDimensionId`): `Promise`\<`string` \| `undefined`\>
+
+Returns the value of a custom dimension with the specified ID.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `customDimensionId` | `string` \| `number` |
+
+#### Returns
+
+`Promise`\<`string` \| `undefined`\>
+
+___
+
+### setCustomDimensionValue
+
+▸ **setCustomDimensionValue**(`customDimensionId`, `customDimensionValue`): `void`
+
+Sets a custom dimension value to be used later.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `customDimensionId` | `string` \| `number` |
+| `customDimensionValue` | `string` |
+
+#### Returns
+
+`void`
+
+
+<a name="modulescustomeventmd"></a>
+
+
+# CustomEvent
+
+## Table of contents
+
+
+- [trackEvent](#trackevent)
+
+## Functions
+
+### trackEvent
+
+▸ **trackEvent**(`category`, `action`, `name?`, `value?`, `dimensions?`): `void`
+
+Tracks a custom event, e.g. when a visitor interacts with the page
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `category` | `string` |
+| `action` | `string` |
+| `name?` | `string` |
+| `value?` | `number` |
+| `dimensions?` | [`Dimensions`](#dimensions) |
+
+#### Returns
+
+`void`
+
+
+<a name="modulesdatalayermd"></a>
+
+
+# DataLayer
+
+## Table of contents
+
+
+- [push](#push)
+
+## Functions
+
+### push
+
+▸ **push**(`data`): `number`
+
+Adds entry to a data layer
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `any` |
+
+#### Returns
+
+`number`
+
+
+<a name="modulesdownloadandoutlinkmd"></a>
+
+
+# DownloadAndOutlink
+
+## Table of contents
+
+
+- [addDownloadExtensions](#adddownloadextensions)
+- [enableLinkTracking](#enablelinktracking)
+- [getLinkTrackingTimer](#getlinktrackingtimer)
+- [removeDownloadExtensions](#removedownloadextensions)
+- [setDownloadClasses](#setdownloadclasses)
+- [setDownloadExtensions](#setdownloadextensions)
+- [setIgnoreClasses](#setignoreclasses)
+- [setLinkClasses](#setlinkclasses)
+- [setLinkTrackingTimer](#setlinktrackingtimer)
+- [trackLink](#tracklink)
+
+## Functions
+
+### addDownloadExtensions
+
+▸ **addDownloadExtensions**(`extensions`): `void`
+
+Adds new extensions to the download extensions list
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `extensions` | `string`[] |
+
+#### Returns
+
+`void`
+
+___
+
+### enableLinkTracking
+
+▸ **enableLinkTracking**(`trackAlsoMiddleAndRightClicks?`): `void`
+
+Enables automatic link tracking. If called with `true`, left, right and
+middle clicks on links will be treated as opening a link. Opening a links to
+an external site (different domain) creates an outlink event. Opening a link
+to a downloadable file creates a download event
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `trackAlsoMiddleAndRightClicks?` | `boolean` |
+
+#### Returns
+
+`void`
+
+___
+
+### getLinkTrackingTimer
+
+▸ **getLinkTrackingTimer**(): `Promise`\<`number`\>
+
+Returns lock/wait time after a request set by setLinkTrackingTimer
+
+#### Returns
+
+`Promise`\<`number`\>
+
+___
+
+### removeDownloadExtensions
+
+▸ **removeDownloadExtensions**(`extensions`): `void`
+
+Removes extensions from the download extensions list
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `extensions` | `string`[] |
+
+#### Returns
+
+`void`
+
+___
+
+### setDownloadClasses
+
+▸ **setDownloadClasses**(`classes`): `void`
+
+Sets a list of class names that indicate whether a list is a download and not an outlink
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `classes` | `string`[] |
+
+#### Returns
+
+`void`
+
+___
+
+### setDownloadExtensions
+
+▸ **setDownloadExtensions**(`extensions`): `void`
+
+Overwrites the list of file extensions indicating that a link is a download
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `extensions` | `string`[] |
+
+#### Returns
+
+`void`
+
+___
+
+### setIgnoreClasses
+
+▸ **setIgnoreClasses**(`classes`): `void`
+
+Set a list of class names that indicate a link should not be tracked
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `classes` | `string`[] |
+
+#### Returns
+
+`void`
+
+___
+
+### setLinkClasses
+
+▸ **setLinkClasses**(`classes`): `void`
+
+Sets a list of class names that indicate whether a link is an outlink and not download
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `classes` | `string`[] |
+
+#### Returns
+
+`void`
+
+___
+
+### setLinkTrackingTimer
+
+▸ **setLinkTrackingTimer**(`time`): `void`
+
+When a visitor produces an events and closes the page immediately afterwards,
+e.g. when opening a link, the request might get cancelled. To avoid loosing
+the last event this way, JavaScript Tracking Client will lock the page for a
+fraction of a second (if wait time hasn’t passed), giving the request time to
+reach the Collecting & Processing Pipeline
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `time` | `number` |
+
+#### Returns
+
+`void`
+
+___
+
+### trackLink
+
+▸ **trackLink**(`url`, `linkType`, `dimensions?`, `callback?`): `void`
+
+Manually tracks outlink or download event with provided values
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `url` | `string` |
+| `linkType` | `string` |
+| `dimensions?` | [`Dimensions`](#dimensions) |
+| `callback?` | () => `void` |
+
+#### Returns
+
+`void`
+
+
+<a name="modulesgoalconversionsmd"></a>
+
+
+# GoalConversions
+
+## Table of contents
+
+
+- [trackGoal](#trackgoal)
+
+## Functions
+
+### trackGoal
+
+▸ **trackGoal**(`goalId`, `conversionValue`, `dimensions?`): `void`
+
+Tracks manual goal conversion
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `goalId` | `string` \| `number` |
+| `conversionValue` | `number` |
+| `dimensions?` | [`Dimensions`](#dimensions) |
+
+#### Returns
+
+`void`
+
+
+<a name="modulespageviewsmd"></a>
+
+
+# PageViews
+
+## Table of contents
+
+
+- [trackPageView](#trackpageview)
+
+## Functions
+
+### trackPageView
+
+▸ **trackPageView**(`customPageTitle?`): `void`
+
+Tracks a visit on the page that the function was run on
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `customPageTitle?` | `string` |
+
+#### Returns
+
+`void`
+
+
+<a name="modulessitesearchmd"></a>
+
+
+# SiteSearch
+
+## Table of contents
+
+
+- [trackSiteSearch](#tracksitesearch)
+
+## Functions
+
+### trackSiteSearch
+
+▸ **trackSiteSearch**(`keyword`, `category?`, `searchCount?`, `dimensions?`): `void`
+
+Tracks search requests on a website
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `keyword` | `string` |
+| `category?` | `string` |
+| `searchCount?` | `number` |
+| `dimensions?` | [`Dimensions`](#dimensions) |
+
+#### Returns
+
+`void`
+
+
+<a name="modulesusermanagementmd"></a>
+
+
+# UserManagement
+
+## Table of contents
+
+
+- [getUserId](#getuserid)
+- [getVisitorId](#getvisitorid)
+- [getVisitorInfo](#getvisitorinfo)
+- [resetUserId](#resetuserid)
+- [setUserId](#setuserid)
+
+## Functions
+
+### getUserId
+
+▸ **getUserId**(): `Promise`\<`string`\>
+
+The function that will return user ID
+
+#### Returns
+
+`Promise`\<`string`\>
+
+___
+
+### getVisitorId
+
+▸ **getVisitorId**(): `Promise`\<`string`\>
+
+Returns 16-character hex ID of the visitor
+
+#### Returns
+
+`Promise`\<`string`\>
+
+___
+
+### getVisitorInfo
+
+▸ **getVisitorInfo**(): `Promise`\<[`VisitorInfo`](#visitorinfo)\>
+
+Returns visitor information in an array
+
+#### Returns
+
+`Promise`\<[`VisitorInfo`](#visitorinfo)\>
+
+___
+
+### resetUserId
+
+▸ **resetUserId**(): `void`
+
+Clears previously set userID, e.g. when visitor logs out
+
+#### Returns
+
+`void`
+
+___
+
+### setUserId
+
+▸ **setUserId**(`userId`): `void`
+
+User ID is an additional parameter that allows you to aggregate data. When
+set up, you will be able to search through sessions by this parameter, filter
+reports through it or create Multi attribution reports using User ID
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `userId` | `string` |
+
+#### Returns
+
+`void`
+
+
+<a name="modulesecommercemd"></a>
+
+
+# eCommerce
+
+## Table of contents
+
+
+- [addEcommerceItem](#addecommerceitem)
+- [clearEcommerceCart](#clearecommercecart)
+- [ecommerceAddToCart](#ecommerceaddtocart)
+- [ecommerceCartUpdate](#ecommercecartupdate)
+- [ecommerceOrder](#ecommerceorder)
+- [ecommerceProductDetailView](#ecommerceproductdetailview)
+- [ecommerceRemoveFromCart](#ecommerceremovefromcart)
+- [getEcommerceItems](#getecommerceitems)
+- [removeEcommerceItem](#removeecommerceitem)
+- [setEcommerceView](#setecommerceview)
+- [trackEcommerceCartUpdate](#trackecommercecartupdate)
+- [trackEcommerceOrder](#trackecommerceorder)
+
+## Functions
+
+### addEcommerceItem
+
+▸ **addEcommerceItem**(`productSKU`, `productName`, `productCategory`, `productPrice`, `productQuantity`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `productSKU` | `string` |
+| `productName` | `string` |
+| `productCategory` | `string` \| `string`[] |
+| `productPrice` | `number` |
+| `productQuantity` | `number` |
+
+#### Returns
+
+`void`
+
+**`Deprecated`**
+
+Please use the ecommerceAddToCart instead.
+
+___
+
+### clearEcommerceCart
+
+▸ **clearEcommerceCart**(): `void`
+
+#### Returns
+
+`void`
+
+**`Deprecated`**
+
+___
+
+### ecommerceAddToCart
+
+▸ **ecommerceAddToCart**(`products`): `void`
+
+Tracks action of adding products to a cart
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `products` | [`Product`](#product)[] |
+
+#### Returns
+
+`void`
+
+___
+
+### ecommerceCartUpdate
+
+▸ **ecommerceCartUpdate**(`products`, `grandTotal`): `void`
+
+Tracks current state of a cart
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `products` | [`Product`](#product)[] |
+| `grandTotal` | `string` \| `number` |
+
+#### Returns
+
+`void`
+
+___
+
+### ecommerceOrder
+
+▸ **ecommerceOrder**(`products`, `paymentInformation`): `void`
+
+Tracks conversion, including products and payment details
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `products` | [`Product`](#product)[] |
+| `paymentInformation` | [`PaymentInformation`](#paymentinformation) |
+
+#### Returns
+
+`void`
+
+___
+
+### ecommerceProductDetailView
+
+▸ **ecommerceProductDetailView**(`products`): `void`
+
+Tracks action of viewing product page
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `products` | [`Product`](#product)[] |
+
+#### Returns
+
+`void`
+
+___
+
+### ecommerceRemoveFromCart
+
+▸ **ecommerceRemoveFromCart**(`products`): `void`
+
+Tracks action of removing a products from a cart
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `products` | [`Product`](#product)[] |
+
+#### Returns
+
+`void`
+
+___
+
+### getEcommerceItems
+
+▸ **getEcommerceItems**(): `Promise`\<`object`\>
+
+#### Returns
+
+`Promise`\<`object`\>
+
+**`Deprecated`**
+
+___
+
+### removeEcommerceItem
+
+▸ **removeEcommerceItem**(`productSKU`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `productSKU` | `string` |
+
+#### Returns
+
+`void`
+
+**`Deprecated`**
+
+Please use the ecommerceRemoveFromCart instead.
+
+___
+
+### setEcommerceView
+
+▸ **setEcommerceView**(`productSKU`, `productName?`, `productCategory?`, `productPrice?`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `productSKU` | `string` |
+| `productName?` | `string` |
+| `productCategory?` | `string`[] |
+| `productPrice?` | `string` |
+
+#### Returns
+
+`void`
+
+**`Deprecated`**
+
+___
+
+### trackEcommerceCartUpdate
+
+▸ **trackEcommerceCartUpdate**(`cartAmount`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `cartAmount` | `number` |
+
+#### Returns
+
+`void`
+
+**`Deprecated`**
+
+Please use the ecommerceCartUpdate instead.
+
+___
+
+### trackEcommerceOrder
+
+▸ **trackEcommerceOrder**(`orderId`, `orderGrandTotal`, `orderSubTotal?`, `orderTax?`, `orderShipping?`, `orderDiscount?`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `orderId` | `string` |
+| `orderGrandTotal` | `number` |
+| `orderSubTotal?` | `number` |
+| `orderTax?` | `number` |
+| `orderShipping?` | `number` |
+| `orderDiscount?` | `number` |
+
+#### Returns
+
+`void`
+
+**`Deprecated`**
+
+Please use the ecommerceOrder instead.
