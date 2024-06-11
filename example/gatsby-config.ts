@@ -15,7 +15,8 @@ const config: GatsbyConfig = {
         containerUrl: process.env.GATSBY_CONTAINER_URL,
         containerId: process.env.GATSBY_CONTAINER_ID,
         nonceString: process.env.GATSBY_NONCE_STRING,
-        pluginEnabled: true
+        pluginEnabled: true,
+        // dataLayerName: "myDataLayer"
       }
     }
   ]

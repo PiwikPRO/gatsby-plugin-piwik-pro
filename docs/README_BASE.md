@@ -32,36 +32,39 @@ If you want to use nonce, you need to pass it as parameter `nonceString`.
 
 ```ts
 plugins: [
-    {
-      resolve: '@piwikpro/gatsby-plugin-piwik-pro',
-      options: {
-        pluginEnabled: true,
-        containerUrl: 'https://example.containers.piwik.pro/',
-        containerId: 'dc0f2c80-79d8-456a-9c77-6d48d6f867dd', 
-        nonceString: '' // not required
-      }
-    }
-  ]
+  {
+    resolve: '@piwikpro/gatsby-plugin-piwik-pro',
+    options: {
+      pluginEnabled: true,
+      containerUrl: 'https://example.containers.piwik.pro/',
+      containerId: 'dc0f2c80-79d8-456a-9c77-6d48d6f867dd',
+      nonceString: '', // not required
+      dataLayerName: 'myDataLayer', // custom Data Layer name, not required
+    },
+  },
+]
 ```
 
 ### Track page views
 
-To track all page view you need to create or edit `gatsby-browser.js` or `gatsby-browser.ts` file, and add `onRouteUpdate` function like on example below. 
+To track all page view you need to create or edit `gatsby-browser.js` or `gatsby-browser.ts` file, and add `onRouteUpdate` function like on example below.
 
 ```ts
-import {PageViews} from '@piwikpro/gatsby-plugin-piwik-pro'
+import { PageViews } from '@piwikpro/gatsby-plugin-piwik-pro'
 
 const onRouteUpdate = () => {
   if (`requestAnimationFrame` in window) {
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => setTimeout(() => PageViews.trackPageView(), 0))
+      requestAnimationFrame(() =>
+        setTimeout(() => PageViews.trackPageView(), 0)
+      )
     })
   } else {
     setTimeout(() => PageViews.trackPageView(), 32)
   }
 }
 
-export {onRouteUpdate}
+export { onRouteUpdate }
 ```
 
 ## Example Usage
@@ -93,5 +96,3 @@ useEffect(() => {
   CustomEvent.trackEvent button
 </button>
 ```
-
-Below you can view the sample usage of the avialable methods from modules.

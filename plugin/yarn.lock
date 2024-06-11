@@ -2165,17 +2165,17 @@
     chrome-trace-event "^1.0.2"
     nullthrows "^1.1.1"
 
-"@piwikpro/react-piwik-pro@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@piwikpro/react-piwik-pro/-/react-piwik-pro-2.0.1.tgz#e7289e12cd0ab6c2d2746c4844237b0edd027493"
-  integrity sha512-phb4lNiTN0kFtg+K3oaHN6Ktfo32O//1VWF2mCBZY9LYf5JS9PObA27tayh4En+E+xb5ySgdFFvg+GqnvdShWA==
+"@piwikpro/react-piwik-pro@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@piwikpro/react-piwik-pro/-/react-piwik-pro-2.1.0.tgz#d884ebffa9739eca12ae8b6b3a06e3dc5e0f1fc4"
+  integrity sha512-vBzAB6A+i4Pwge9RkTeMbZy5ns2bZG3/QbvVIIOFApou9xmSlhgI7KhZ1P4WZH8H0Nih0QRvnPvT4vbCqZIMjQ==
   dependencies:
-    "@piwikpro/tracking-base-library" "^1.1.2"
+    "@piwikpro/tracking-base-library" "^1.2.0"
 
-"@piwikpro/tracking-base-library@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@piwikpro/tracking-base-library/-/tracking-base-library-1.1.2.tgz#e3bf1f1499046d0d00af26578d466cbb35ea5dfa"
-  integrity sha512-zOfDgtZEHujQOeLvq6IctXbJpIY+mixDgEnGR/4yc72g2vKaIf8g6N4P8jGREYUovBVwcrwh99fIP9V+dsrtBA==
+"@piwikpro/tracking-base-library@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@piwikpro/tracking-base-library/-/tracking-base-library-1.2.0.tgz#66c93c04dc2b29e986f05221c1422b26a8e4fb30"
+  integrity sha512-D3F29v0D77vPHGeVognfLYWrP/K6SfnukWERelxsiduFuRWPbKagMLqMxsxnw81QURhSy/CngAmjPBAM1jXAjg==
 
 "@pmmmwh/react-refresh-webpack-plugin@^0.5.10":
   version "0.5.11"

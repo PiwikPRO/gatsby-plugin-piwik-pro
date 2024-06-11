@@ -14,6 +14,7 @@ const pluginOptionsSchema = ({Joi}: PluginOptionsSchemaArgs) =>
       otherwise: Joi.optional(),
     }).description(`The ID of your Piwik PRO container`),
     nonceString: Joi.string().empty().description(`The nonce string to use for the script tag`),
+    dataLayerName: Joi.string().empty().description(`Custom data layer name`),
   })
 
 export {pluginOptionsSchema}
