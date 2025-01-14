@@ -18,7 +18,7 @@ const config: GatsbyConfig = {
         pluginEnabled: true,
         // dataLayerName: "myDataLayer"
       }
-    }
+    },
   ]
 }
 

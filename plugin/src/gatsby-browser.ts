@@ -1,6 +1,6 @@
 import PiwikPro from '@piwikpro/react-piwik-pro'
 
-const onClientEntry = (
+export const onClientEntry = (
   _: unknown,
   pluginOptions: {
     pluginEnabled: boolean
@@ -16,5 +16,3 @@ const onClientEntry = (
       dataLayerName: pluginOptions.dataLayerName
     })
 }
-
-export { onClientEntry }

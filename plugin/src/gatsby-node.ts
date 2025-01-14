@@ -1,6 +1,6 @@
 import type {PluginOptionsSchemaArgs} from "gatsby"
 
-const pluginOptionsSchema = ({Joi}: PluginOptionsSchemaArgs) =>
+export const pluginOptionsSchema = ({Joi}: PluginOptionsSchemaArgs) =>
   Joi.object({
     pluginEnabled: Joi.boolean().default(true).description(`Enable or disable the plugin`),
     containerUrl: Joi.string().when(`pluginEnabled`, {
@@ -16,5 +16,3 @@ const pluginOptionsSchema = ({Joi}: PluginOptionsSchemaArgs) =>
     nonceString: Joi.string().empty().description(`The nonce string to use for the script tag`),
     dataLayerName: Joi.string().empty().description(`Custom data layer name`),
   })
-
-export {pluginOptionsSchema}
