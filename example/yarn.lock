@@ -1945,10 +1945,9 @@
     chrome-trace-event "^1.0.2"
     nullthrows "^1.1.1"
 
-"@piwikpro/gatsby-plugin-piwik-pro@file:../plugin":
-  version "1.4.0"
-  dependencies:
-    "@piwikpro/react-piwik-pro" "^2.2.1"
+"@piwikpro/gatsby-plugin-piwik-pro@link:../plugin":
+  version "0.0.0"
+  uid ""
 
 "@piwikpro/react-piwik-pro@^2.2.1":
   version "2.2.1"

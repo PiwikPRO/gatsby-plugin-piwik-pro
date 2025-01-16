@@ -1,0 +1,6 @@
+/src
+/docs_raw
+.prettierrc
+jest.config.js
+tsconfig.json
+typedoc.json
