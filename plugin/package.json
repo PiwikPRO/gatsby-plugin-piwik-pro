@@ -1,9 +1,9 @@
 {
   "name": "@piwikpro/gatsby-plugin-piwik-pro",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Piwik PRO tracking library for Gatsby",
   "license": "MIT",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "commonjs",
   "author": "Piwik PRO Integration Team <integrations@piwik.pro>",
