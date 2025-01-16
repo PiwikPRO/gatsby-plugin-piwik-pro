@@ -1,11 +1,11 @@
 {
   "name": "@piwikpro/gatsby-plugin-piwik-pro",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Piwik PRO tracking library for Gatsby",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "source": "src/index.tsx",
+  "type": "commonjs",
   "author": "Piwik PRO Integration Team <integrations@piwik.pro>",
   "engines": {
     "node": ">=18.0.0"
@@ -16,18 +16,13 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "tsc",
+    "build": "tsc --outDir .",
     "build:docs":"typedoc && concat-md --decrease-title-levels --start-title-level-at=2 docs_raw > ../README.md && node ../scripts/postProcessDocs.mjs"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/PiwikPRO/gatsby-plugin-piwik-pro.git"
   },
-  "files": [
-    "dist",
-    "gatsby-node.js",
-    "gatsby-browser.js"
-  ],
   "peerDependencies": {
     "gatsby": "^5.0.0"
   },
