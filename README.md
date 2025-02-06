@@ -121,6 +121,7 @@ useEffect(() => {
 - [ErrorTracking](#moduleserrortrackingmd)
 - [GoalConversions](#modulesgoalconversionsmd)
 - [Heartbeat](#modulesheartbeatmd)
+- [Miscellaneous](#modulesmiscellaneousmd)
 - [PageViews](#modulespageviewsmd)
 - [SiteSearch](#modulessitesearchmd)
 - [UserManagement](#modulesusermanagementmd)
@@ -130,6 +131,7 @@ useEffect(() => {
 
 - [Dimensions](#dimensions)
 - [InitOptions](#initoptions)
+- [Initialize](#initialize)
 - [PaymentInformation](#paymentinformation)
 - [Product](#product)
 - [VisitorInfo](#visitorinfo)
@@ -156,6 +158,28 @@ ___
 | :------ | :------ | :------ |
 | `dataLayerName?` | `string` | Defaults to 'dataLayer' |
 | `nonce?` | `string` | - |
+
+___
+
+#### Initialize
+
+Ƭ **Initialize**: (`containerId`: `string`, `containerUrl`: `string`, `nonceOrOptions?`: `string` \| [`InitOptions`](#initoptions)) => `void`
+
+##### Type declaration
+
+▸ (`containerId`, `containerUrl`, `nonceOrOptions?`): `void`
+
+###### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `containerId` | `string` |
+| `containerUrl` | `string` |
+| `nonceOrOptions?` | `string` \| [`InitOptions`](#initoptions) |
+
+###### Returns
+
+`void`
 
 ___
 
@@ -203,14 +227,7 @@ ___
 
 #### default
 
-• `Const` **default**: `Object`
-
-##### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `getInitScript` | typeof `PiwikPro.getInitScript` |
-| `initialize` | typeof `PiwikPro.init` |
+• `Const` **default**: typeof `PiwikPRO.default`
 
 
 <a name="modulesclientconfigurationmd"></a>
@@ -1285,6 +1302,35 @@ When a visitor is not producing any events (e.g. because they are reading an art
 | Name | Type |
 | :------ | :------ |
 | `delays?` | `number`[] |
+
+##### Returns
+
+`void`
+
+
+<a name="modulesmiscellaneousmd"></a>
+
+
+## Miscellaneous
+
+### Table of contents
+
+
+- [setTrackingSourceProvider](#settrackingsourceprovider)
+
+
+#### setTrackingSourceProvider
+
+▸ **setTrackingSourceProvider**(`provider`, `version`): `void`
+
+Adds metadata about used framework
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `provider` | `string` |
+| `version` | `string` |
 
 ##### Returns
 
