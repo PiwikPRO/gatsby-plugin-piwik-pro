@@ -130,6 +130,7 @@ useEffect(() => {
 #### Type Aliases
 
 - [Dimensions](#dimensions)
+- [EcommerceOptions](#ecommerceoptions)
 - [InitOptions](#initoptions)
 - [Initialize](#initialize)
 - [PaymentInformation](#paymentinformation)
@@ -145,6 +146,18 @@ useEffect(() => {
 #### Dimensions
 
 Ƭ **Dimensions**: `Record`\<\`dimension$\{number}\`, `string`\>
+
+___
+
+#### EcommerceOptions
+
+Ƭ **EcommerceOptions**: `Object`
+
+##### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `currencyCode?` | `string` | Currency code in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format. If not provided, the currency set in app settings will be used instead. |
 
 ___
 
@@ -1250,7 +1263,7 @@ Such error request will still follow rules set for tracker, so it will be sent o
 
 #### trackGoal
 
-▸ **trackGoal**(`goalId`, `conversionValue`, `dimensions?`): `void`
+▸ **trackGoal**(`goalId`, `conversionValue`, `dimensions?`, `options?`): `void`
 
 Tracks manual goal conversion
 
@@ -1261,6 +1274,7 @@ Tracks manual goal conversion
 | `goalId` | `string` \| `number` |
 | `conversionValue` | `number` |
 | `dimensions?` | [`Dimensions`](#dimensions) |
+| `options?` | [`EcommerceOptions`](#ecommerceoptions) |
 
 ##### Returns
 
@@ -1570,7 +1584,7 @@ ___
 
 #### ecommerceAddToCart
 
-▸ **ecommerceAddToCart**(`products`): `void`
+▸ **ecommerceAddToCart**(`products`, `options?`): `void`
 
 Tracks action of adding products to a cart
 
@@ -1579,6 +1593,7 @@ Tracks action of adding products to a cart
 | Name | Type |
 | :------ | :------ |
 | `products` | [`Product`](#product)[] |
+| `options?` | [`EcommerceOptions`](#ecommerceoptions) |
 
 ##### Returns
 
@@ -1588,7 +1603,7 @@ ___
 
 #### ecommerceCartUpdate
 
-▸ **ecommerceCartUpdate**(`products`, `grandTotal`): `void`
+▸ **ecommerceCartUpdate**(`products`, `grandTotal`, `options?`): `void`
 
 Tracks current state of a cart
 
@@ -1598,6 +1613,7 @@ Tracks current state of a cart
 | :------ | :------ |
 | `products` | [`Product`](#product)[] |
 | `grandTotal` | `string` \| `number` |
+| `options?` | [`EcommerceOptions`](#ecommerceoptions) |
 
 ##### Returns
 
@@ -1607,7 +1623,7 @@ ___
 
 #### ecommerceOrder
 
-▸ **ecommerceOrder**(`products`, `paymentInformation`): `void`
+▸ **ecommerceOrder**(`products`, `paymentInformation`, `options?`): `void`
 
 Tracks conversion, including products and payment details
 
@@ -1617,6 +1633,7 @@ Tracks conversion, including products and payment details
 | :------ | :------ |
 | `products` | [`Product`](#product)[] |
 | `paymentInformation` | [`PaymentInformation`](#paymentinformation) |
+| `options?` | [`EcommerceOptions`](#ecommerceoptions) |
 
 ##### Returns
 
@@ -1626,7 +1643,7 @@ ___
 
 #### ecommerceProductDetailView
 
-▸ **ecommerceProductDetailView**(`products`): `void`
+▸ **ecommerceProductDetailView**(`products`, `options?`): `void`
 
 Tracks action of viewing product page
 
@@ -1635,6 +1652,7 @@ Tracks action of viewing product page
 | Name | Type |
 | :------ | :------ |
 | `products` | [`Product`](#product)[] |
+| `options?` | [`EcommerceOptions`](#ecommerceoptions) |
 
 ##### Returns
 
@@ -1644,7 +1662,7 @@ ___
 
 #### ecommerceRemoveFromCart
 
-▸ **ecommerceRemoveFromCart**(`products`): `void`
+▸ **ecommerceRemoveFromCart**(`products`, `options?`): `void`
 
 Tracks action of removing a products from a cart
 
@@ -1653,6 +1671,7 @@ Tracks action of removing a products from a cart
 | Name | Type |
 | :------ | :------ |
 | `products` | [`Product`](#product)[] |
+| `options?` | [`EcommerceOptions`](#ecommerceoptions) |
 
 ##### Returns
 

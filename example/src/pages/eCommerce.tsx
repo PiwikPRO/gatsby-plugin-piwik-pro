@@ -119,12 +119,15 @@ const eCommercePage = () => {
   const [isOpenProductDetails, setIsOpenProductDetails] = useState(false)
 
   const handlelAddToCart = (product: Product) => {
-    eCommerce.ecommerceAddToCart([
-      {
-        ...product,
-        quantity: 1,
-      },
-    ])
+    eCommerce.ecommerceAddToCart(
+      [
+        {
+          ...product,
+          quantity: 1,
+        },
+      ],
+      { currencyCode: 'USD' }
+    )
 
     setCart([
       ...cart,
@@ -161,13 +164,13 @@ const eCommercePage = () => {
       discount,
     }
 
-    eCommerce.ecommerceOrder(cart, paymentInformation)
+    eCommerce.ecommerceOrder(cart, paymentInformation, { currencyCode: 'USD' })
   }
 
   const removeProduct = (product: Product) => {
     const newCart = cart.filter((item) => item.sku !== product.sku)
     setCart(newCart)
-    eCommerce.ecommerceRemoveFromCart(newCart)
+    eCommerce.ecommerceRemoveFromCart(newCart, { currencyCode: 'USD' })
   }
 
   const increaseProductQuantity = (product: Product) => {
@@ -193,7 +196,11 @@ const eCommercePage = () => {
     const discount = 5
 
     setCart(newCart)
-    eCommerce.ecommerceCartUpdate(newCart, subTotal + tax + shipping - discount)
+    eCommerce.ecommerceCartUpdate(
+      newCart,
+      subTotal + tax + shipping - discount,
+      { currencyCode: 'USD' }
+    )
   }
 
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
@@ -201,7 +208,7 @@ const eCommercePage = () => {
   const handleProductDetailViewOpen = (product: Product) => {
     setSelectedProduct(product)
     setIsOpenProductDetails(true)
-    eCommerce.ecommerceProductDetailView([product])
+    eCommerce.ecommerceProductDetailView([product], { currencyCode: 'USD' })
   }
 
   return (

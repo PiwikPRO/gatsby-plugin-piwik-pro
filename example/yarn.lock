@@ -1949,17 +1949,17 @@
   version "0.0.0"
   uid ""
 
-"@piwikpro/react-piwik-pro@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@piwikpro/react-piwik-pro/-/react-piwik-pro-2.3.0.tgz#62d93c98f55722ce366c0389037d1eef987e3eb3"
-  integrity sha512-Gu0UHZy98ZPuWUKGzrdNAPL4AJIlhhF4C9aa15Soc4TZsFyBwz39LWlD0GzVMqn7K9hxHq7sBzDtUeTTlIGA6A==
+"@piwikpro/react-piwik-pro@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@piwikpro/react-piwik-pro/-/react-piwik-pro-2.4.0.tgz#46f707ec86d3a414926b40c3846a033debe57023"
+  integrity sha512-JTWcE5/BYCiSfKAtpFDsFyxe3zFrv9Atni7qg1j9q8CZ9WhYsx+ACcpyQRkpfYp8c+YQ47hX3LgqXU9FcmXBMw==
   dependencies:
-    "@piwikpro/tracking-base-library" "^1.4.0"
+    "@piwikpro/tracking-base-library" "^1.5.0"
 
-"@piwikpro/tracking-base-library@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@piwikpro/tracking-base-library/-/tracking-base-library-1.4.0.tgz#fd490e79945bb9085a048cd2bdf1e6768c0415b6"
-  integrity sha512-IR6L3iCPKjWo0f8hUNxhLF88Phjeis9TFuCtgwdxQB2lkK6wAn3J85g188W/i3MSS2jLEu+5DYaylqlcHJwSHg==
+"@piwikpro/tracking-base-library@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@piwikpro/tracking-base-library/-/tracking-base-library-1.5.0.tgz#9672fd743e7f8be3e2e8a89b65b30867a7488d83"
+  integrity sha512-PT6LHUL7SH4hzO3VliBFoLFqFC4vikSC6R9pbIcEH5fPmYC5W11x1ztRo6qpZ+BuFa/EEvunAdBdeDWMTkApPw==
 
 "@pmmmwh/react-refresh-webpack-plugin@^0.5.10":
   version "0.5.11"
