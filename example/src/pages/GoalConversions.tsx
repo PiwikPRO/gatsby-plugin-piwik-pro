@@ -42,7 +42,7 @@ const GoalConversionsPage = () => {
       <p>
         <button
           onClick={() => {
-            GoalConversions.trackGoal(2, 40)
+            GoalConversions.trackGoal(2, 40, undefined, { currencyCode: 'USD' })
           }}
         >
           GoalConversions.trackGoal
