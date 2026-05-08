@@ -26,9 +26,24 @@ const pageData = {
       desc: 'Sets a list of class names that indicate whether a link is an outlink and not download.',
     },
     {
+      method: 'getDownloadClasses',
+      usage: 'DownloadAndOutlink.getDownloadClasses()',
+      desc: 'Returns a list of class names that indicate whether a list is a download and not an outlink.',
+    },
+    {
       method: 'setDownloadClasses',
       usage: 'DownloadAndOutlink.setDownloadClasses(classes: string[])',
       desc: 'Sets a list of class names that indicate whether a list is a download and not an outlink.',
+    },
+    {
+      method: 'addDownloadClasses',
+      usage: 'DownloadAndOutlink.addDownloadClasses(classes: string[])',
+      desc: 'Adds new classes to the download classes list.',
+    },
+    {
+      method: 'removeDownloadClasses',
+      usage: 'DownloadAndOutlink.removeDownloadClasses(classes: string[])',
+      desc: 'Removes classes from the download classes list.',
     },
     {
       method: 'setDownloadExtensions',
@@ -118,6 +133,20 @@ const DownloadAndOutlinkPage = () => {
         </button>
         <button
           onClick={() => {
+            DownloadAndOutlink.addDownloadClasses(['this-is-a-download'])
+          }}
+        >
+          DownloadAndOutlink.addDownloadClasses
+        </button>
+        <button
+          onClick={() => {
+            DownloadAndOutlink.removeDownloadClasses(['this-is-a-download'])
+          }}
+        >
+          DownloadAndOutlink.removeDownloadClasses
+        </button>
+        <button
+          onClick={() => {
             DownloadAndOutlink.addDownloadExtensions(['rar'])
           }}
         >
@@ -179,6 +208,11 @@ const DownloadAndOutlinkPage = () => {
           Download XLXS
         </a>{' '}
         - download turned off by default using className
+        <br />
+        <a className="this-is-a-download" href={`example.xlsx`} download>
+          Download XLXS
+        </a>{' '}
+        - download or outlink depending on if the class <code>this-is-a-download</code> is in the list of download classes
       </div>
       <p>
         <code>DownloadAndOutlink.getLinkTrackingTimer()</code> -{' '}
