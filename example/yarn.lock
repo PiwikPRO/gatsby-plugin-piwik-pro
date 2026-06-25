@@ -1946,10 +1946,11 @@
     nullthrows "^1.1.1"
 
 "@piwikpro/gatsby-plugin-piwik-pro@link:../plugin":
-  version "0.0.0"
-  uid ""
+  version "1.7.0"
+  dependencies:
+    "@piwikpro/react-piwik-pro" "^2.6.0"
 
-"@piwikpro/react-piwik-pro@^2.5.0":
+"@piwikpro/react-piwik-pro@^2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@piwikpro/react-piwik-pro/-/react-piwik-pro-2.6.0.tgz#8932072141ae8344af08f8d5e1672628a9adbbfe"
   integrity sha512-yOF9pI24vL7yj2Fng7wJcU9nGEVLSwzEl41xThvLefkJmBriv7mSScJ/I1SA6nx0JkuW9T2NLFHlUKv500Lwyg==
@@ -8543,9 +8544,9 @@ shebang-regex@^3.0.0:
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
 shell-quote@^1.7.3:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.8.1.tgz#6dbf4db75515ad5bac63b4f1894c3a154c766680"
-  integrity sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.9.0.tgz#e108b1a136586d5964edb3300016d4bedba0fe57"
+  integrity sha512-Iov+JwFv/2HcTpcwNMKd8+IWNb8tboQJNQTkAY/LLVK7gGH9jy+LGkVqPxfekHl+yMmiqXszdGWXgkfml7hjqA==
 
 side-channel@^1.0.4:
   version "1.0.4"
