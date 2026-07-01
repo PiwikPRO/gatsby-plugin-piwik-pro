@@ -1,6 +1,8 @@
 import type {PluginOptionsSchemaArgs} from "gatsby"
 
-export const pluginOptionsSchema = ({Joi}: PluginOptionsSchemaArgs) =>
+type PluginOptionsSchema = ReturnType<PluginOptionsSchemaArgs["Joi"]["object"]>
+
+export const pluginOptionsSchema = ({Joi}: PluginOptionsSchemaArgs): PluginOptionsSchema =>
   Joi.object({
     pluginEnabled: Joi.boolean().default(true).description(`Enable or disable the plugin`),
     containerUrl: Joi.string().when(`pluginEnabled`, {
