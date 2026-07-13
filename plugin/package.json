@@ -16,8 +16,9 @@
   ],
   "scripts": {
     "test": "jest",
+    "version": "node scripts/bakeInVersion.mjs && auto-changelog -p && git add ../CHANGELOG.md src/version.ts",
     "build": "node scripts/bakeInVersion.mjs && tsc --outDir .",
-    "build:docs":"typedoc && concat-md --decrease-title-levels --start-title-level-at=2 docs_raw > ../README.md && node ../scripts/postProcessDocs.mjs"
+    "build:docs": "typedoc && concat-md --decrease-title-levels --start-title-level-at=2 docs_raw > ../README.md && node ../scripts/postProcessDocs.mjs"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",
+    "auto-changelog": "^2.6.0",
     "concat-md": "^0.5.1",
     "gatsby": "^5.12.8",
     "gatsby-plugin-utils": "^4.12.2",
