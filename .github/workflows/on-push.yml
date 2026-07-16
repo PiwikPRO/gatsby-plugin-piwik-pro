@@ -55,3 +55,38 @@ jobs:
             echo "Documentation is not up to date!"
             exit 1
           fi
+
+  e2e-tests:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: '18'
+          cache: 'yarn'
+          cache-dependency-path: |
+            ./plugin/yarn.lock
+            ./example/yarn.lock
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install plugin modules
+        run: yarn
+        working-directory: ./plugin
+
+      - name: Build plugin
+        run: yarn build
+        working-directory: ./plugin
+
+      - name: Install example modules
+        run: yarn install --frozen-lockfile
+        working-directory: ./example
+
+      - name: Install Playwright browser
+        run: yarn playwright install --with-deps chromium
+        working-directory: ./example
+
+      - name: Run e2e tests
+        run: yarn test:e2e
+        working-directory: ./example
