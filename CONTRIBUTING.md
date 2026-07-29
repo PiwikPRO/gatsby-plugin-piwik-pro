@@ -4,31 +4,33 @@ We want this community to be friendly and respectful to each other. Please follo
 
 ## Development workflow
 
-To get started with the project, run `yarn` in the root directory to install the required dependencies for each package:
+To get started with the project, install the plugin's dependencies from the `plugin/` directory:
 
 ```sh
-yarn
+cd plugin
+npm install
 ```
 
 Next to build plugin run:
 
 ```sh
-yarn build
+npm run build
 ```
 
 While developing, you can run the example to test your changes.
 The changes you make in your library will not be reflected in the example app without a rebuild.
 
-To start or rebuild the example app:
+To start or rebuild the example app, from the `example/` directory:
 
 ```sh
-yarn develop
+npm install
+npm run develop
 ```
 
-If you made a change that will update the documentation, please run:
+If you made a change that will update the documentation, please run this from `plugin/`:
 
 ```sh
-yarn build:docs
+npm run build:docs
 ```
 
 ### Commit message convention

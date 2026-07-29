@@ -21,33 +21,33 @@ jobs:
 
       - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: '18'
-          cache: 'yarn'
-          cache-dependency-path: ./plugin/yarn.lock
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ./plugin/package-lock.json
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install Modules
-        run: yarn
+        run: npm ci
 
       - name: Build
-        run: yarn build
+        run: npm run build
 
       # Run tests
       - name: Run tests
-        run: yarn test
+        run: npm run test
 
       # Build example app
       - name: Install modules
-        run: yarn install --frozen-lockfile
+        run: npm ci
         working-directory: ./example
 
       - name: Build
-        run: yarn build
+        run: npm run build
         working-directory: ./example
 
       # Check documentation
       - name: Generate documentation
-        run: yarn build:docs
+        run: npm run build:docs
 
       - name: Check for documentation changes
         run: |
@@ -64,29 +64,29 @@ jobs:
 
       - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: '18'
-          cache: 'yarn'
+          node-version: '20'
+          cache: 'npm'
           cache-dependency-path: |
-            ./plugin/yarn.lock
-            ./example/yarn.lock
+            ./plugin/package-lock.json
+            ./example/package-lock.json
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install plugin modules
-        run: yarn
+        run: npm ci
         working-directory: ./plugin
 
       - name: Build plugin
-        run: yarn build
+        run: npm run build
         working-directory: ./plugin
 
       - name: Install example modules
-        run: yarn install --frozen-lockfile
+        run: npm ci
         working-directory: ./example
 
       - name: Install Playwright browser
-        run: yarn playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium
         working-directory: ./example
 
       - name: Run e2e tests
-        run: yarn test:e2e
+        run: npm run test:e2e
         working-directory: ./example

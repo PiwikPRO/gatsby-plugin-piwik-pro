@@ -8,11 +8,11 @@ Dedicated Piwik PRO library that helps with implementing Piwik PRO Tag Manager a
 
 ## Installation
 
-Go to the top library directory. Install it's dependencies and build library using commands: 
+Go to the `plugin/` directory. Install it's dependencies and build library using commands: 
 
 ```
-yarn
-yarn build
+npm install
+npm run build
 ```
 
 Then back to the demo directory and continue.
@@ -20,7 +20,7 @@ Then back to the demo directory and continue.
 Install all demo packages running command:
 
 ```
-yarn 
+npm install
 ```
 
 ## Configuration
@@ -37,7 +37,7 @@ GATSBY_CONTAINER_ID=
 To run example project use command:
 
 ```
-yarn develop
+npm run develop
 ```
 
 Project is accessible in browser under `http://localhost:8000` address.
