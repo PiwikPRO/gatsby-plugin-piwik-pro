@@ -53,15 +53,15 @@ on `master`.
    ```
 
 2. Bump the version from the `plugin/` directory. This does **not** create a
-   commit or tag — `plugin/.yarnrc` sets `version-git-tag false`, so
-   `yarn version` only edits `plugin/package.json`. The `version` lifecycle hook
+   commit or tag — `plugin/.npmrc` sets `git-tag-version=false`, so
+   `npm version` only edits `plugin/package.json`. The `version` lifecycle hook
    still runs, so it also regenerates the root changelog (adds the new version
    heading + commits since the last release) and bakes the version into the
    build (`plugin/src/version.ts`):
 
    ```sh
    cd plugin
-   yarn version --new-version <x.y.z>   # or --patch / --minor / --major
+   npm version <x.y.z>   # or patch / minor / major
    cd ..
    ```
 

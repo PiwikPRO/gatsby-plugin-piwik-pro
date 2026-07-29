@@ -18,17 +18,17 @@ jobs:
         with:
           node-version: '20'
           registry-url: https://registry.npmjs.org/
-          cache: 'yarn'
-          cache-dependency-path: ./plugin/yarn.lock
+          cache: 'npm'
+          cache-dependency-path: ./plugin/package-lock.json
 
       - name: Install modules
-        run: yarn
+        run: npm ci
 
       - name: Run tests
-        run: yarn test
+        run: npm run test
 
       - name: Build
-        run: yarn build
+        run: npm run build
 
       - name: Copy readme to plugin directory
         run: cp ../README.md README.md
