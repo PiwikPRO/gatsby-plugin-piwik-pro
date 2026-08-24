@@ -28,7 +28,7 @@
     "gatsby": "^5.0.0"
   },
   "dependencies": {
-    "@piwikpro/react-piwik-pro": "^2.6.0"
+    "@piwikpro/react-piwik-pro": "^3.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",
