@@ -2367,4 +2367,14 @@ Defaults to 'dataLayer'
 
 ## default
 
-> `const` **default**: *typeof* `PiwikPRO.default`
+> `const` **default**: `object`
+
+### Type Declaration
+
+#### getInitScript
+
+> **getInitScript**: [`GetInitScript`](#type-aliasesgetinitscriptmd)
+
+#### initialize
+
+> **initialize**: [`Initialize`](#type-aliasesinitializemd)
